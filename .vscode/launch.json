@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CastApplication<cast>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.radio.cast.CastApplication",
+            "projectName": "cast",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
