@@ -34,8 +34,9 @@ public class SecurityConfig {
                     
                     // 공개 API 경로 허용 (로그인, 회원가입 등)
                     .requestMatchers(
-                            "/api/auth/**",
-                            "/api/public/**"
+                            //추후 기능 개발 후 경로 추가 할 예정
+                            //"/api/auth/**",
+                            //"/api/public/**"
                     ).permitAll()
                     
                     // 그 외 모든 요청은 인증 필요
