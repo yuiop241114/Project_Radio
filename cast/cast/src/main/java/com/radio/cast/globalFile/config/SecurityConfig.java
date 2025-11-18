@@ -16,11 +16,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
             // CSRF 비활성화 (REST API인 경우)
             http.csrf(AbstractHttpConfigurer::disable)
-            
             // 세션 정책 설정 (JWT 사용 시 STATELESS)
-            .sessionManagement(session -> 
-                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             // 인증/인가 설정
             .authorizeHttpRequests(auth -> auth
                     // Swagger 관련 경로 모두 허용
@@ -31,12 +28,10 @@ public class SecurityConfig {
                             "/swagger-ui.html",
                             "/api-docs/**"
                     ).permitAll()
-                    
                     // 공개 API 경로 허용 (로그인, 회원가입 등)
                     .requestMatchers(
-                            //추후 기능 개발 후 경로 추가 할 예정
-                            //"/api/auth/**",
-                            //"/api/public/**"
+                            //추후 기능 개발 후 경로 추가
+                            "/api/auth/**"
                     ).permitAll()
                     
                     // 그 외 모든 요청은 인증 필요
