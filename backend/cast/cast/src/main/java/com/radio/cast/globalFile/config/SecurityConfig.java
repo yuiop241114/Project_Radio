@@ -26,7 +26,8 @@ public class SecurityConfig {
                             "/v3/api-docs/**",
                             "/swagger-resources/**",
                             "/swagger-ui.html",
-                            "/api-docs/**"
+                            "/api-docs/**",
+                            "/api/**"
                     ).permitAll()
                     // 공개 API 경로 허용 (로그인, 회원가입 등)
                     .requestMatchers(
