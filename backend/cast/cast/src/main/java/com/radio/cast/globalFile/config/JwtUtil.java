@@ -17,15 +17,12 @@ public class JwtUtil {
     private final SecretKey secretKey;
     private final long expiration;
 
-    public JwtUtil(
-            @Value("${jwt.secret}") String secret,
-            @Value("${jwt.expiration}") long expiration
-    ) {
+    public JwtUtil(@Value("${jwt.secret}") String secret, @Value("${jwt.expiration}") long expiration) {
         this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
         this.expiration = expiration;
     }
 
-    // JWT 생성
+    // JWT 생성(Access 토큰 생성)
     public String generateToken(String username) {
         return Jwts.builder()
                 .subject(username)
@@ -33,6 +30,16 @@ public class JwtUtil {
                 .expiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(secretKey)
                 .compact();
+    }
+
+    //Refresh 토큰 생성
+    public String generateRefreshToken(String username){
+         return Jwts.builder()
+            .subject(username)
+            .issuedAt(new Date())
+            .expiration(new Date(System.currentTimeMillis() + expiration))
+            .signWith(secretKey)
+            .compact();
     }
 
     // JWT 검증
