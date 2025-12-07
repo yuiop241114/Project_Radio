@@ -1,9 +1,11 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import './App.css'
 
+import Login from './api/Login'
+
 function App() {
+  /*
   const [count, setCount] = useState(0)
 
   return (
@@ -30,6 +32,27 @@ function App() {
       </p>
     </>
   )
+    */
+
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    axios.get("http://localhost:8081/api/test")
+      .then(res => {
+        setMessage(res.data);
+      })
+      .catch(err => {
+        console.error("API 호출 실패:", err);
+      });
+  }, []);
+
+  return (
+    <div style={{ padding: "20px" }}>
+      <h1>React → Spring Boot API 테스트</h1>
+      <p>결과: {message}</p>
+      <Login/>
+    </div>
+  );
 }
 
 export default App
