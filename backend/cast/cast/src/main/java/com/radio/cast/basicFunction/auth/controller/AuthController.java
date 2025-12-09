@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.radio.cast.basicFunction.auth.dto.LoginRequest;
 import com.radio.cast.basicFunction.auth.dto.LoginResponse;
 import com.radio.cast.basicFunction.auth.service.AuthService;
+import com.radio.cast.basicFunction.auth.service.RefreshTokenService;
 import com.radio.cast.globalFile.config.JwtUtil;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -19,10 +20,30 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
   
   private final AuthService authService;
+  private final JwtUtil jwtUtil;
+  private final RefreshTokenService refreshTokenService;
 
   @PostMapping("/login")
+  /**
+   * 로그인 메소드
+   * @param loginRequest
+   * @return
+   */
   public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest){
-    String token = authService.login(loginRequest);
-    return ResponseEntity.ok(new LoginResponse(token));
+    //로그인 요청 후 accessToken, RefreshTokne 발급
+    String accessToken = jwtUtil.generateToken(loginRequest.getUesrname());
+    String RefreshToken = jwtUtil.generateRefreshToken(loginRequest.getUesrname());
+    
+    //RefreshToken Redis에 저장
+    refreshTokenService.saveRefreshToken(accessToken, RefreshToken, jwtUtil.expiration);
+    //accessToken, RefreshToken 반환
+    return ResponseEntity.ok(new LoginResponse(accessToken, RefreshToken));
   }
+  /* 
+  @PostMapping("/reRT")
+  public String postMethodName(@RequestBody String ) {
+      
+      return entity;
+  }*/
+  
 }

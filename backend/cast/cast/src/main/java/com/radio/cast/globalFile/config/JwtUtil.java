@@ -15,7 +15,7 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtUtil {
     private final SecretKey secretKey;
-    private final long expiration;
+    public long expiration;
 
     public JwtUtil(@Value("${jwt.secret}") String secret, @Value("${jwt.expiration}") long expiration) {
         this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
