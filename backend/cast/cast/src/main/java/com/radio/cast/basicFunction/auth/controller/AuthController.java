@@ -39,11 +39,11 @@ public class AuthController {
     //accessToken, RefreshToken 반환
     return ResponseEntity.ok(new LoginResponse(accessToken, RefreshToken));
   }
-  /* 
+  
   @PostMapping("/reRT")
-  public String postMethodName(@RequestBody String ) {
-      
+  public ResponseEntity(String) postMethodName(@RequestBody String ) {
+      String refreshToken = 
       return entity;
-  }*/
+  }
   
 }
