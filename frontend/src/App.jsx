@@ -3,6 +3,7 @@ import axios from 'axios'
 import './App.css'
 
 import Login from './api/Login'
+import SignUp from './pages/SignUp'
 
 function App() {
   /*
@@ -47,11 +48,14 @@ function App() {
   }, []);
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>React → Spring Boot API 테스트</h1>
-      <p>결과: {message}</p>
-      <Login/>
-    </div>
+    <>
+      <div style={{ padding: "20px" }}>
+        <h1>React → Spring Boot API 테스트</h1>
+        <p>결과: {message}</p>
+        <Login/>
+        <SignUp/>
+      </div>
+    </>
   );
 }
 
