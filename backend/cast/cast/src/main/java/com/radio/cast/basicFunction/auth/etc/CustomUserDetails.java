@@ -1,11 +1,11 @@
-package com.radio.cast.basicFunction.etc;
+package com.radio.cast.basicFunction.auth.etc;
 
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.radio.cast.basicFunction.entity.User;
+import com.radio.cast.basicFunction.user.entity.User;
 
 public class CustomUserDetails implements UserDetails{
 
@@ -16,7 +16,7 @@ public class CustomUserDetails implements UserDetails{
     }
 
     public String getUsername() {
-        return user.getUserName();
+        return user.getUsername();
     }
 
     @Override

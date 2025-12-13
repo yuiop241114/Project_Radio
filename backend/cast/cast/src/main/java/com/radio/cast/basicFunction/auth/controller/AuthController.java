@@ -42,6 +42,11 @@ public class AuthController {
     return ResponseEntity.ok(new LoginResponse(accessToken, RefreshToken));
   }
   
+  /**
+   * RefreshToken 제발급 메소드
+   * @param tokenRefresh
+   * @return
+   */
   @PostMapping("/refreshRT")
   public ResponseEntity<String> postMethodName(@RequestBody TokenRefresh tokenRefresh) {
     String refreshToken = tokenRefresh.getRefreshToken();

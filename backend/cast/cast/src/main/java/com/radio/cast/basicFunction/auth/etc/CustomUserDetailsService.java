@@ -1,12 +1,12 @@
-package com.radio.cast.basicFunction.etc;
+package com.radio.cast.basicFunction.auth.etc;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.radio.cast.basicFunction.entity.User;
-import com.radio.cast.basicFunction.repository.UserRepository;
+import com.radio.cast.basicFunction.user.entity.User;
+import com.radio.cast.basicFunction.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
