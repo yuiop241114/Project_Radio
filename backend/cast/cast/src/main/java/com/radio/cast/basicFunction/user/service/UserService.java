@@ -15,6 +15,12 @@ private UserRepository userRepository;
    * @return
    */
   public SignUpResponse SignUp(SignUpRequest signUpDto){
+    /* 
+    if(!userRepository.existsByUsername(signUpDto.getUsername())){
+      return "fail";
+    }
+    */
+
     User user = userRepository.save(signUpDto.toEntity());
     return new SignUpResponse(user);
   }
