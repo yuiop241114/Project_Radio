@@ -60,7 +60,7 @@ public class SecurityConfig {
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 세션 사용 안함 (JWT)
             .authorizeHttpRequests(auth -> auth
                     // 인증 없이 접근 가능한 경로
-                    .requestMatchers("/auth/login", "/auth/register").permitAll()
+                    .requestMatchers("/auth/login", "/user/signUp").permitAll()
                     //swagger 관련 링크 허용
                     .requestMatchers(
                                 "/swagger-ui/**",

@@ -1,19 +1,23 @@
 package com.radio.cast.basicFunction.user.service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.radio.cast.basicFunction.user.dto.SignUpRequest;
 import com.radio.cast.basicFunction.user.dto.SignUpResponse;
 import com.radio.cast.basicFunction.user.entity.User;
 import com.radio.cast.basicFunction.user.repository.UserRepository;
-import com.radio.cast.globalFile.config.SecurityConfig;
 import com.radio.cast.globalFile.exception.BusinessException;
 import com.radio.cast.globalFile.exception.ErrorCode;
 
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
 public class UserService {
   
-  private UserRepository userRepository;
-  private PasswordEncoder passwordEncoder;
+  private final UserRepository userRepository;
+  private final PasswordEncoder passwordEncoder;
   /**
    * 아이디 및 중복 체크 메소드
    * @param signUpRequest

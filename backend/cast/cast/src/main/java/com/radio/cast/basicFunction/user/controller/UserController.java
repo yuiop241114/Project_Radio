@@ -9,7 +9,6 @@ import com.radio.cast.basicFunction.user.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,17 +19,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/user")
 public class UserController {
 
-  private UserService userService;
+  private final UserService userService;
 
   /**
    * 회원가입 컨트롤러
    * @param entity
    * @return
    */
-  @PostMapping("/SignUp")
-  public ResponseEntity<SignUpResponse> postMethodName(@RequestBody SignUpRequest signUpRequest) {
+  @PostMapping("/signUp")
+  public ResponseEntity<SignUpResponse> signUp(@RequestBody SignUpRequest signUpRequest) {
       SignUpResponse signUpResponse = userService.signUp(signUpRequest);
-      return ResponseEntity.status(HttpStatus.CREATED).body(signUpResponse);
+      return ResponseEntity.status(201).body(signUpResponse);
   }
   
 }
