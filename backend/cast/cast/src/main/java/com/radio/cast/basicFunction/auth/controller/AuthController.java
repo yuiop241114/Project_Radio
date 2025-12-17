@@ -3,6 +3,7 @@ package com.radio.cast.basicFunction.auth.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +14,6 @@ import com.radio.cast.basicFunction.auth.service.AuthService;
 import com.radio.cast.basicFunction.auth.service.RefreshTokenService;
 import com.radio.cast.globalFile.config.JwtUtil;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -33,11 +33,12 @@ public class AuthController {
    */
   public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest){
     //로그인 요청 후 accessToken, RefreshTokne 발급
-    String accessToken = jwtUtil.generateToken(loginRequest.getUesrname());
-    String RefreshToken = jwtUtil.generateRefreshToken(loginRequest.getUesrname());
+    String accessToken = jwtUtil.generateToken(loginRequest.getUsername());
+    String RefreshToken = jwtUtil.generateRefreshToken(loginRequest.getUsername());
     
     //RefreshToken Redis에 저장
-    refreshTokenService.saveRefreshToken(accessToken, RefreshToken, jwtUtil.expiration);
+    System.out.println("회원아이디 " + loginRequest.getUsername());
+    refreshTokenService.saveRefreshToken(loginRequest.getUsername(), RefreshToken, jwtUtil.expiration);
     //accessToken, RefreshToken 반환
     return ResponseEntity.ok(new LoginResponse(accessToken, RefreshToken));
   }
