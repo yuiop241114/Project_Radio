@@ -1,0 +1,61 @@
+.main-container {
+  padding: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.hero h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  color: #666;
+}
+
+.features {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+
+.feature-card {
+  width: 280px;
+  padding: 25px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.feature-card h3 {
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  color: #555;
+}
+
+.api-test {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.api-test button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 6px;
+  background-color: #4a90e2;
+  color: white;
+  cursor: pointer;
+}
+
+.footer {
+  text-align: center;
+  padding: 30px;
+  color: #aaa;
+}

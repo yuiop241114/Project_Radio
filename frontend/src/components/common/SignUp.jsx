@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
-import axiosNoToken from './api/AxiosNoToken'
+import axiosNoToken from '../../api/AxiosNoToken'
 
 const SignUp = () => {
   //페이지 이동을 위한 hook
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   //사용자 입력 데이터 저장
   //useState의 경우 상태가 변경되면 자동으로 컴포넌트 재렌더링
@@ -54,6 +54,7 @@ const SignUp = () => {
     }
 
     // 비밀번호 길이 검사
+    
     if (form.password.length < 8) {
       setError("비밀번호는 8자 이상이어야 합니다.");
       return false;
@@ -65,6 +66,7 @@ const SignUp = () => {
       setError("비밀번호는 영문, 숫자, 특수문자를 포함해야 합니다.");
       return false;
     }
+      
 
     // 비밀번호 일치 확인
     if (form.password !== form.passwordConfirm) {
@@ -80,11 +82,11 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
+    
     try {
       // 서버에 회원가입 요청 (POST)
       // await: 서버 응답을 기다림 (비동기 처리)
-      const response = await axiosNoToken.post("/auth/signup", {
+      const response = await axiosNoToken.post("/user/signUp", {
         username: form.username,
         password: form.password,
         email: form.email,
@@ -94,7 +96,7 @@ const SignUp = () => {
       // 응답 상태 코드 확인 (200 또는 201은 성공)
       if (response.status === 200 || response.status === 201) {
         alert("회원가입이 완료되었습니다!");
-        navigate("/login");  // 로그인 페이지로 이동
+        //navigate("/login");  // 로그인 페이지로 이동, 나중에 페이지 세분화 하면 설정 해제
       }
     } catch (err) {
       // 에러 발생 시 처리
@@ -110,7 +112,7 @@ const SignUp = () => {
       // try-catch 완료 후 무조건 실행
       // 성공하든 실패하든 로딩 종료
       setLoading(false);
-    }
+    } 
   };
 
   return (
@@ -123,8 +125,7 @@ const SignUp = () => {
 
         <input type="password" name="password" placeholder="비밀번호" value={form.password} onChange={handleChange} required/>
 
-        {/*error  */}
-        {error && <p style={  b0styles.error}>{error}</p>}
+        {error && <p>{error}</p>}
 
         <button type="submit">회원가입</button>
       </form>
