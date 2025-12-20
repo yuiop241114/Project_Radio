@@ -2,6 +2,7 @@ package com.radio.cast.basicFunction.auth.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,12 @@ public class AuthController {
     refreshTokenService.saveRefreshToken(loginRequest.getUsername(), RefreshToken, jwtUtil.expiration);
     //accessToken, RefreshToken 반환
     return ResponseEntity.ok(new LoginResponse(accessToken, RefreshToken));
+  }
+
+  @PostMapping("/logout")
+  public void logout(Authentication authentication){
+    String username = authentication.getName();
+    refreshTokenService.deleteRefreshToken(username);
   }
   
   /**
