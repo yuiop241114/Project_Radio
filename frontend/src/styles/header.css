@@ -1,34 +1,40 @@
 .header {
-  height: 64px;
-  padding: 0 40px;
+  height: 70px;
+  padding: 0 36px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #eaeaea;
-  background-color: #ffffff;
+  background: #0f1220;
+  color: #fff;
 }
 
-.header-left {
-  font-size: 20px;
-  font-weight: 700;
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
-.header-nav a {
-  margin: 0 16px;
-  font-weight: 500;
-  color: #333;
+.logo span {
+  color: #00e5ff;
 }
 
-.header-right {
+.on-air {
   display: flex;
   align-items: center;
-  gap: 14px;
+  font-size: 14px;
+  color: #00e5ff;
 }
 
-.header-right button {
-  padding: 6px 14px;
-  border-radius: 4px;
-  border: none;
-  background-color: #222;
-  color: #fff;
+.on-air::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: red;
+  border-radius: 50%;
+  margin-right: 8px;
+  animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0.3; }
 }

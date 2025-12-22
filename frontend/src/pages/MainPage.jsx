@@ -1,5 +1,6 @@
 import React from "react";
 import '../styles/mainPageCss.css'
+import '../styles/global.css'
 
 import Header from '../components/common/Header'
 import ContentSection from '../components/common/ContentSection';
@@ -8,25 +9,35 @@ const MainPage = () => {
   return (
     <>
       <Header/>
+
+      <div className="hero">
+        <h1>LIVE RADIO</h1>
+        <p>지금 이 순간, 실시간으로 연결되는 사운드</p>
+        <button>지금 청취하기</button>
+      </div>
     
-      <main className="layout">
-        <section className="hero-section">
-          <div className="hero-text">
-            <h1>Radio Cast</h1>
-            <p>
-              실시간 커뮤니티와 라디오 스트리밍을 결합한  
-              사용자 중심 플랫폼
-            </p>
-
-            <div className="hero-actions">
-              <button className="primary">커뮤니티 가기</button>
-              <button className="secondary">라디오 듣기</button>
-            </div>
+      <section className="channel-section">
+      <div className="channel-list">
+          <div className="channel-card">
+            <div className="channel-title">POP FM</div>
+            <div className="channel-desc">24시간 팝 음악</div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <ContentSection/>
-      </main>
+      <div className="player">
+        <div className="player-info">
+          <strong>POP FM</strong>
+          <div className="wave" />
+        </div>
+        <div className="player-controls">
+          <button>⏮</button>
+          <button>▶</button>
+          <button>⏭</button>
+        </div>
+      </div>
+
+      <ContentSection/>
     </>
   );
 };
