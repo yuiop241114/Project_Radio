@@ -1,6 +1,5 @@
 import React from "react";
 import '../styles/mainPageCss.css'
-import '../styles/global.css'
 
 import Header from '../components/common/Header'
 import ContentSection from '../components/common/ContentSection';
@@ -37,7 +36,7 @@ const MainPage = () => {
         </div>
       </div>
 
-      <ContentSection/>
+      {/* <ContentSection/> */}
     </>
   );
 };

@@ -1,8 +1,12 @@
 import React from "react";
 import "../../styles/header.css";
+import { useNavigate } from "react-router-dom";
+
+import '../../styles/header.css'
 
 const Header = () => {
   const username = localStorage.getItem("username");
+  const navigate = useNavigate();
 
   const logout = () => {
     localStorage.clear();
@@ -26,7 +30,7 @@ const Header = () => {
             <button onClick={logout}>로그아웃</button>
           </>
         ) : (
-          <a href="/login">로그인</a>
+          <button onClick={() => navigate('/login')}>로그인</button>
         )}
       </div>
     </header>
