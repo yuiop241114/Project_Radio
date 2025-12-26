@@ -1,40 +1,32 @@
 .header {
-  height: 70px;
-  padding: 0 36px;
+  width: 100%;
+  height: 64px;
+  background: rgba(2, 6, 23, 0.85);
+  backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #0f1220;
-  color: #fff;
+  padding: 0 32px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-.logo {
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: 1px;
+.header-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #22c55e;
 }
 
-.logo span {
-  color: #00e5ff;
+.header-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: #020617;
+  color: #e5e7eb;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.2s ease;
 }
 
-.on-air {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  color: #00e5ff;
-}
-
-.on-air::before {
-  content: "";
-  width: 8px;
-  height: 8px;
-  background: red;
-  border-radius: 50%;
-  margin-right: 8px;
-  animation: blink 1.2s infinite;
-}
-
-@keyframes blink {
-  50% { opacity: 0.3; }
+.header-btn:hover {
+  background: #22c55e;
+  color: #020617;
 }

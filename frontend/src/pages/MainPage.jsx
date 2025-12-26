@@ -9,7 +9,7 @@ const MainPage = () => {
     <>
       <Header/>
 
-      <div className="hero">
+      {/* <div className="hero">
         <h1>LIVE RADIO</h1>
         <p>지금 이 순간, 실시간으로 연결되는 사운드</p>
         <button>지금 청취하기</button>
@@ -34,7 +34,7 @@ const MainPage = () => {
           <button>▶</button>
           <button>⏭</button>
         </div>
-      </div>
+      </div> */}
 
       {/* <ContentSection/> */}
     </>
