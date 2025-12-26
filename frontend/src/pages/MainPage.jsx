@@ -1,14 +1,11 @@
 import React from "react";
 import '../styles/mainPageCss.css'
 
-import Header from '../components/common/Header'
 import ContentSection from '../components/common/ContentSection';
 
 const MainPage = () => {
   return (
     <>
-      <Header/>
-
       {/* <div className="hero">
         <h1>LIVE RADIO</h1>
         <p>지금 이 순간, 실시간으로 연결되는 사운드</p>

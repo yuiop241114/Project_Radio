@@ -16,12 +16,20 @@ a {
   text-decoration: none;
   color: inherit;
 }
+a:hover{
+  color: gray;
+}
 
 button {
   border: none;
   background: none;
   font-family: inherit;
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+button:hover{
+  color: gray;
 }
 
 input {
