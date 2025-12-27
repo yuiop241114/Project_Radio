@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axiosNoToken from '../../api/AxiosNoToken'
 
+import '../../styles/signUp.css';
 const SignUp = () => {
   //페이지 이동을 위한 hook
   //const navigate = useNavigate();
@@ -116,19 +117,59 @@ const SignUp = () => {
   };
 
   return (
-    <div id="singBox">
-      <h2>회원가입</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="username" placeholder="아이디" value={form.username} onChange={handleChange} required/>
+    <div className="signup-container">
+      <div className="signup-box">
+        <h2 className="signup-title">회원가입</h2>
+        <Link to="/" className="login-logo">🎧 Radio Cast</Link>
 
-        <input type="email" name="email" placeholder="이메일" value={form.email} onChange={handleChange} required/>
+        <form className="signup-form" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="username"
+            placeholder="아이디"
+            value={form.username}
+            onChange={handleChange}
+            required
+          />
 
-        <input type="password" name="password" placeholder="비밀번호" value={form.password} onChange={handleChange} required/>
+          <input
+            type="email"
+            name="email"
+            placeholder="이메일"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
 
-        {error && <p>{error}</p>}
+          <input
+            type="password"
+            name="password"
+            placeholder="비밀번호"
+            value={form.password}
+            onChange={handleChange}
+            required
+          />
 
-        <button type="submit">회원가입</button>
-      </form>
+          <input
+            type="password"
+            name="passwordConfirm"
+            placeholder="비밀번호 확인"
+            value={form.passwordConfirm}
+            onChange={handleChange}
+            required
+          />
+
+          {error && <p className="signup-error">{error}</p>}
+
+          <button
+            type="submit"
+            className="signup-button"
+            disabled={loading}
+          >
+            {loading ? "가입 중..." : "회원가입"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

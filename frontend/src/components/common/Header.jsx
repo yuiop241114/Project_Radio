@@ -1,7 +1,8 @@
 import React from "react";
-import "../../styles/header.css";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
+import "../../styles/header.css";
 import '../../styles/header.css'
 
 const Header = () => {
@@ -15,7 +16,9 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div className="header-left">Radio Cast</div>
+      <div className="header-left">
+        <Link to="/" className="logo">🎧 Radio Cast</Link>
+      </div>
 
       <nav className="header-nav">
         <a href="/">홈</a>

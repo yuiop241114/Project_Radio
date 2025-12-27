@@ -33,6 +33,10 @@
   padding: 20px;
 }
 
+.header-left a{
+  color: white;
+}
+
 button{
   font-size: 18px;
 }
