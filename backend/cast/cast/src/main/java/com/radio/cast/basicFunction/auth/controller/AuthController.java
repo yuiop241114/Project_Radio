@@ -38,16 +38,21 @@ public class AuthController {
     String RefreshToken = jwtUtil.generateRefreshToken(loginRequest.getUsername());
     
     //RefreshToken Redis에 저장
-    System.out.println("회원아이디 " + loginRequest.getUsername());
+    //System.out.println("회원아이디 " + loginRequest.getUsername());
     refreshTokenService.saveRefreshToken(loginRequest.getUsername(), RefreshToken, jwtUtil.expiration);
     //accessToken, RefreshToken 반환
     return ResponseEntity.ok(new LoginResponse(accessToken, RefreshToken));
   }
 
+  /**
+   * 로그아웃 컨트롤러
+   * @param authentication
+   */
   @PostMapping("/logout")
-  public void logout(Authentication authentication){
+  public ResponseEntity<String> logout(Authentication authentication){
     String username = authentication.getName();
     refreshTokenService.deleteRefreshToken(username);
+    return ResponseEntity.ok("logout");
   }
   
   /**
