@@ -28,9 +28,10 @@ function Login() {
 
       // 토큰 저장 (LocalStorage)
       localStorage.setItem("token", token);
+      localStorage.setItem("username", username);
 
       //메인페이지로 이동
-      useNavigate("/");
+      navigate("/");
 
       alert("로그인 성공!");
     } catch (err) {

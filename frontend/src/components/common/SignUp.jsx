@@ -55,7 +55,6 @@ const SignUp = () => {
     }
 
     // 비밀번호 길이 검사
-    
     if (form.password.length < 8) {
       setError("비밀번호는 8자 이상이어야 합니다.");
       return false;
@@ -83,6 +82,9 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+
+    if (!validateForm()) return;
+    setLoading(true);
     
     try {
       // 서버에 회원가입 요청 (POST)
