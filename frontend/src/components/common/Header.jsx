@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import axiosToken from "../../api/AxiosNoToken";
 
 import "../../styles/header.css";
 import '../../styles/header.css'
@@ -11,7 +12,8 @@ const Header = () => {
 
   const logout = () => {
     localStorage.clear();
-    window.location.href = "/login";
+    axiosToken.post('/auth/logout');
+    window.location.href = "/";
   };
 
   return (

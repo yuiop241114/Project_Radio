@@ -24,11 +24,11 @@ function Login() {
       });
 
       // 서버에서 받은 JWT 토큰
-      const token = response.data.token;
+      //const token = response.data.token;
 
       // 토큰 저장 (LocalStorage)
-      localStorage.setItem("token", token);
-      localStorage.setItem("username", username);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("username", response.data.username);
 
       //메인페이지로 이동
       navigate("/");
