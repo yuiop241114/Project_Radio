@@ -1,10 +1,13 @@
 package com.radio.cast.basicFunction.auth.controller;
 
+import java.util.Optional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +16,7 @@ import com.radio.cast.basicFunction.auth.dto.LoginResponse;
 import com.radio.cast.basicFunction.auth.dto.TokenRefresh;
 import com.radio.cast.basicFunction.auth.service.AuthService;
 import com.radio.cast.basicFunction.auth.service.RefreshTokenService;
+import com.radio.cast.basicFunction.user.dto.SignUpResponse;
 import com.radio.cast.globalFile.config.JwtUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -37,11 +41,13 @@ public class AuthController {
     String accessToken = jwtUtil.generateToken(loginRequest.getUsername());
     String RefreshToken = jwtUtil.generateRefreshToken(loginRequest.getUsername());
     
+
     //RefreshToken Redis에 저장
     //System.out.println("회원아이디 " + loginRequest.getUsername());
     refreshTokenService.saveRefreshToken(loginRequest.getUsername(), RefreshToken, jwtUtil.expiration);
+    SignUpResponse user = authService.userData(loginRequest.getUsername()).get();
     //accessToken, RefreshToken 반환
-    return ResponseEntity.ok(new LoginResponse(accessToken, RefreshToken));
+    return ResponseEntity.ok(new LoginResponse(accessToken, RefreshToken, user.getUsername()));
   }
 
   /**
@@ -49,8 +55,9 @@ public class AuthController {
    * @param authentication
    */
   @PostMapping("/logout")
-  public ResponseEntity<String> logout(Authentication authentication){
-    String username = authentication.getName();
+  public ResponseEntity<String> logout(@RequestHeader("Authorization") String authorization){
+    String token = authorization.substring(7);
+    String username = jwtUtil.getUsernameFromToken(token);
     refreshTokenService.deleteRefreshToken(username);
     return ResponseEntity.ok("logout");
   }
