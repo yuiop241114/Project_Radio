@@ -7,7 +7,7 @@ import '../../styles/login.css';
 
 function Login() {
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ function Login() {
     
     try {
       const response = await axios.post("http://localhost:8081/auth/login", {
-        username: username,
+        email: email,
         password: password,
       });
 
@@ -27,13 +27,13 @@ function Login() {
       //const token = response.data.token;
 
       // 토큰 저장 (LocalStorage)
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("accessToken", response.data.accessToken);
+      localStorage.setItem("refreshToken", response.data.refreshToken);
       localStorage.setItem("username", response.data.username);
 
       //메인페이지로 이동
       navigate("/");
 
-      alert("로그인 성공!");
     } catch (err) {
       alert("로그인 실패");
       console.error(err);
@@ -47,7 +47,7 @@ function Login() {
         <Link to="/" className="login-logo">🎧 Radio Cast</Link>
 
         <form className="login-form" onSubmit={handleLogin}>
-          <input type="text" name="username" placeholder="아이디" onChange={(e) => setUsername(e.target.value)}/>
+          <input type="text" name="email" placeholder="아이디" onChange={(e) => setEmail(e.target.value)}/>
           <input type="password" name="password" placeholder="비밀번호" onChange={(e) => setPassword(e.target.value)}/>
           <button type="submit">로그인</button>
         </form>

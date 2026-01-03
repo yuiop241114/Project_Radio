@@ -11,8 +11,14 @@ const Header = () => {
   const navigate = useNavigate();
 
   const logout = () => {
+    axiosToken.post('/auth/logout', {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("refreshToken")}`
+        }
+      }
+    );
     localStorage.clear();
-    axiosToken.post('/auth/logout');
     window.location.href = "/";
   };
 
