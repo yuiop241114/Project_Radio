@@ -23,9 +23,9 @@ public class JwtUtil {
     }
 
     // JWT 생성(Access 토큰 생성)
-    public String generateToken(String username) {
+    public String generateToken(String email) {
         return Jwts.builder()
-                .subject(username)
+                .subject(email)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(secretKey)
@@ -33,9 +33,9 @@ public class JwtUtil {
     }
 
     //Refresh 토큰 생성
-    public String generateRefreshToken(String username){
+    public String generateRefreshToken(String email){
          return Jwts.builder()
-            .subject(username)
+            .subject(email)
             .issuedAt(new Date())
             .expiration(new Date(System.currentTimeMillis() + expiration))
             .signWith(secretKey)

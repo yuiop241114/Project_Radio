@@ -25,7 +25,7 @@ public class AuthService {
 
   public String login(LoginRequest loginRequest){
     //아이디, 비밀번호 기반 인증 토큰 생성
-    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
+    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword());
 
     //AuthenticationManager(Spring Security 인증)에게 인증 요청
     Authentication authentication = authenticationManager.authenticate(authToken);

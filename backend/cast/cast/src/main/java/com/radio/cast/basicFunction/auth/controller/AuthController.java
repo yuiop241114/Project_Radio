@@ -38,16 +38,15 @@ public class AuthController {
    */
   public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest){
     //로그인 요청 후 accessToken, RefreshTokne 발급
-    String accessToken = jwtUtil.generateToken(loginRequest.getUsername());
-    String RefreshToken = jwtUtil.generateRefreshToken(loginRequest.getUsername());
+    String accessToken = jwtUtil.generateToken(loginRequest.getEmail());
+    String refreshToken = jwtUtil.generateRefreshToken(loginRequest.getEmail());
     
 
     //RefreshToken Redis에 저장
-    //System.out.println("회원아이디 " + loginRequest.getUsername());
-    refreshTokenService.saveRefreshToken(loginRequest.getUsername(), RefreshToken, jwtUtil.expiration);
-    SignUpResponse user = authService.userData(loginRequest.getUsername()).get();
+    refreshTokenService.saveRefreshToken(loginRequest.getEmail(), refreshToken, jwtUtil.expiration);
+    SignUpResponse user = authService.userData(loginRequest.getEmail()).get();
     //accessToken, RefreshToken 반환
-    return ResponseEntity.ok(new LoginResponse(accessToken, RefreshToken, user.getUsername()));
+    return ResponseEntity.ok(new LoginResponse(accessToken, refreshToken, user.getId(), user.getEmail(), user.getUsername()));
   }
 
   /**
@@ -57,8 +56,8 @@ public class AuthController {
   @PostMapping("/logout")
   public ResponseEntity<String> logout(@RequestHeader("Authorization") String authorization){
     String token = authorization.substring(7);
-    String username = jwtUtil.getUsernameFromToken(token);
-    refreshTokenService.deleteRefreshToken(username);
+    String email = jwtUtil.getUsernameFromToken(token);
+    refreshTokenService.deleteRefreshToken(email);
     return ResponseEntity.ok("logout");
   }
   
