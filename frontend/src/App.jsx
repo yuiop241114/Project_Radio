@@ -11,6 +11,7 @@ import SignUp from './components/common/SignUp';
 import PostList from './components/posts/PostList';
 import PostDetail from './components/posts/PostDetail';
 import PostWrite from './components/posts/PostWrite';
+import PostEdit from './components/posts/PostEdit';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/post" element={<PostList/>}/>
         <Route path="/post/detail" element={<PostDetail/>}/>
         <Route path="/post/write" element={<PostWrite/>}/>
+        <Route path="/post/edit" element={<PostEdit/>}/>
       </Route>
 
       {/* Header 없는 페이지 */}

@@ -40,7 +40,7 @@ JWT 인증과도 잘 어울립니다.
       <div className="detail-actions">
         <Link to="/post" className="btn gray">목록</Link>
         <div className="right">
-          <button className="btn outline">수정</button>
+          <Link to="/post/edit" className="btn gray">수정</Link>
           <button className="btn danger">삭제</button>
         </div>
       </div>

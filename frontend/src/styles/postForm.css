@@ -1,0 +1,53 @@
+.board-form {
+  /* background: #ffffff; */
+  padding: 32px;
+  border-radius: 12px;
+}
+
+.board-form h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.board-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.board-form input {
+  height: 48px;
+  padding: 0 14px;
+  font-size: 15px;
+  border-radius: 6px;
+  /* background-color: #4a6cf7; */
+}
+
+.board-form textarea {
+  min-height: 260px;
+  padding: 14px;
+  font-size: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  resize: vertical;
+}
+
+.board-form input:focus,
+.board-form textarea:focus {
+  outline: none;
+  border-color: #4a6cf7;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.actions .primary {
+  background: #4a6cf7;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
