@@ -32,7 +32,6 @@ const MainPage = () => {
         </section>
       </main>
 
-      {/* <ContentSection/> */}
     </>
   );
 };

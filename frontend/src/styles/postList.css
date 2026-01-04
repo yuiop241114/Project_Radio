@@ -1,0 +1,48 @@
+.board {
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.board-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.board-top h2 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.write-btn {
+  background-color: #6c63ff;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.board-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.board-table th,
+.board-table td {
+  padding: 14px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+
+.board-table th {
+  /* background: #f9f9f9; */
+}
+
+.board-table td.title {
+  text-align: left;
+}
+
+/* .board-table tbody tr:hover {
+  background-color: #fafafa;
+} */

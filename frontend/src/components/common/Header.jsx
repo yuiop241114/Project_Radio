@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import axiosToken from "../../api/AxiosNoToken";
 
 import "../../styles/header.css";
-import '../../styles/header.css'
 
 const Header = () => {
   const username = localStorage.getItem("username");
@@ -30,7 +29,7 @@ const Header = () => {
 
       <nav className="header-nav">
         <a href="/">홈</a>
-        <a href="/community">커뮤니티</a>
+        <a href="/post">게시판</a>
         <a href="/radio">라디오</a>
       </nav>
 
