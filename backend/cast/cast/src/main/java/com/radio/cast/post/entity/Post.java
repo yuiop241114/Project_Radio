@@ -1,5 +1,6 @@
 package com.radio.cast.post.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -37,7 +38,7 @@ public class Post {
   private String postAuthor;
 
   @Column(nullable = false)
-  private Date postDate;
+  private LocalDateTime postDate;
 
   @Column(nullable = true)
   private Long postView;
