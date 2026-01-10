@@ -21,9 +21,9 @@ public class PostService {
      // 21개 조회 (20 + 1)
         List<Post> postList;
         if (cursor == null) {
-            postList = postRepository.findTop20ByOrderByIdDesc();
+            postList = postRepository.findTop20ByOrderByPostIdDesc();
         } else {
-            postList = postRepository.findTop20ByIdLessThanOrderByIdDesc(cursor);
+            postList = postRepository.findTop20ByPostIdLessThanOrderByPostIdDesc(cursor);
         }
         
         // 다음 데이터 존재 여부 확인

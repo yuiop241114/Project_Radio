@@ -21,8 +21,9 @@ public class PostController {
   private PostService postService;
 
   @GetMapping("/list")
-  public ResponseEntity<CursorResponse<PostListResponse>> postList(@RequestParam(required = false) Long cursor,
-        @RequestParam(required = false, defaultValue = "20") Integer size){
+  public ResponseEntity<CursorResponse<PostListResponse>> postList(
+      @RequestParam(required = false) Long cursor,
+      @RequestParam(required = false, defaultValue = "20") Integer size){
     CursorResponse<PostListResponse> postData = postService.postDate(cursor, size);
     return ResponseEntity.ok(postData);
   }

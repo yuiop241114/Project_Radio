@@ -17,12 +17,12 @@ public interface PostRepository extends JpaRepository<Post, Long>{
    * 첫 조회
    * @return
    */
-  List<Post> findTop20ByOrderByIdDesc();
+  List<Post> findTop20ByOrderByPostIdDesc();
 
   /**
    * 다음 조회
    * @param cursor
    * @return
    */
-  List<Post> findTop20ByIdLessThanOrderByIdDesc(Long cursor);
+  List<Post> findTop20ByPostIdLessThanOrderByPostIdDesc(Long cursor);
 }
