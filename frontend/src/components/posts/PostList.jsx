@@ -1,12 +1,21 @@
 import { Link } from "react-router-dom";
+import AxiosToken from "../../api/AxiosToken";
+
 import "../../styles/postList.css"
 
 const BoardList = () => {
-  const posts = [
-    { id: 1, title: "첫 글입니다", author: "admin", date: "2026-01-01", views: 10 },
-    { id: 2, title: "게시판 구조 공유", author: "junsu", date: "2026-01-02", views: 23 },
-  ];
-
+  
+  const posts = [];
+  
+  const getData = async () => {
+    const postData = await AxiosToken.get("/post/list", {
+      params : {size : 22}
+    });
+    console.log(postData.data)
+    posts = postData.postList;
+  }
+  getData();
+  
   return (
     <div className="board">
       <div className="board-top">
@@ -26,15 +35,15 @@ const BoardList = () => {
         </thead>
         <tbody>
           {posts.map(post => (
-            <tr key={post.id}>
-              <td>{post.id}</td>
+            <tr key={post.postId}>
+              <td>{post.postId}</td>
               <td className="title">
                 {/* <Link to={`/post/write/${post.id}`}>{post.title}</Link> */}
-                <Link to={`/post/detail`}>{post.title}</Link>
+                <Link to={`/post/detail`}>{post.postTitle}</Link>
               </td>
-              <td>{post.author}</td>
-              <td>{post.date}</td>
-              <td>{post.views}</td>
+              <td>{post.postAuthor}</td>
+              <td>{post.postDate}</td>
+              <td>{post.postViews}</td>
             </tr>
           ))}
         </tbody>
