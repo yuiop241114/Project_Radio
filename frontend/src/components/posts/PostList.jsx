@@ -1,20 +1,23 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import AxiosToken from "../../api/AxiosToken";
 
 import "../../styles/postList.css"
 
 const BoardList = () => {
   
-  const posts = [];
+  const [posts, setPosts] = useState([]);
   
   const getData = async () => {
     const postData = await AxiosToken.get("/post/list", {
-      params : {size : 22}
+      params : {size : 10}
     });
-    console.log(postData.data)
-    posts = postData.postList;
+    setPosts(postData.data.postList);
   }
-  getData();
+
+  useEffect(() => {
+    getData();
+  }, []);  // 빈 배열 = 컴포넌트 마운트 시 1번만 실행, 이거 없으면 무한 루프
   
   return (
     <div className="board">
@@ -34,7 +37,7 @@ const BoardList = () => {
           </tr>
         </thead>
         <tbody>
-          {posts.map(post => (
+          {posts.map((post) => (
             <tr key={post.postId}>
               <td>{post.postId}</td>
               <td className="title">
