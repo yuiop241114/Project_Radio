@@ -26,7 +26,7 @@ const BoardList = () => {
       });
 
       setPosts(prev => [...prev, ...postData.data.postList]);
-      setCursor(postData.data.cursor);
+      setCursor(postData.data.nextCursor);
       setHasNext(postData.data.hasNext)
 
     }catch (error) {
@@ -42,7 +42,7 @@ const BoardList = () => {
       (entries) => {
         // 관찰 대상이 화면에 보이면
         if (entries[0].isIntersecting && hasNext && !loading) {
-          loadPosts();  // 다음 데이터 로딩
+          getData();  // 다음 데이터 로딩
         }
       },
       { threshold: 0.5 }  // 50% 보이면 실행
@@ -57,7 +57,8 @@ const BoardList = () => {
         observer.unobserve(observerTarget.current);
       }
     };
-  }, [hasNext, loading, cursor]);  // 의존성 배열
+  }, 
+  [hasNext, loading, cursor]);  // 의존성 배열
 
   useEffect(() => {
     getData();
