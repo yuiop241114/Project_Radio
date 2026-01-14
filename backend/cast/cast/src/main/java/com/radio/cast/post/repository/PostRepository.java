@@ -25,4 +25,6 @@ public interface PostRepository extends JpaRepository<Post, Long>{
    * @return
    */
   List<Post> findTop20ByPostIdLessThanOrderByPostIdDesc(Long cursor);
+
+  Post findByPostId(Long postId);
 }

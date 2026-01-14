@@ -1,7 +1,6 @@
 package com.radio.cast.post.dto;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import com.radio.cast.post.entity.Post;
 
@@ -14,7 +13,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostListResponse {
+public class PostDetailResponse {
   private Long postId;
   private String postTitle;
   private String postContent;
@@ -22,13 +21,13 @@ public class PostListResponse {
   private LocalDateTime postDate; //LocalDateTime : 해당 시간 입력, 시분초 까지 나옴
   private Long postView;
 
-  public PostListResponse(Post post) {
+  public PostDetailResponse(Post post) {
         this.postId = post.getPostId();
         this.postTitle = post.getPostTitle();
-        // this.postContent = post.getPostContent();
+        this.postContent = post.getPostContent();
         this.postAuthor = post.getPostAuthor();
         this.postDate = post.getPostDate(); 
         this.postView = post.getPostView();   
     }
-}
 
+}

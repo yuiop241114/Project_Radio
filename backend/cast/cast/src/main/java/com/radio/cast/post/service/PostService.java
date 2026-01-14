@@ -8,14 +8,18 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 import com.radio.cast.post.dto.CursorResponse;
+import com.radio.cast.post.dto.PostDetailResponse;
 import com.radio.cast.post.dto.PostListResponse;
 import com.radio.cast.post.entity.Post;
 import com.radio.cast.post.repository.PostRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class PostService {
-  private PostRepository postRepository;
-  private static final int Default_size = 20;
+  private final PostRepository postRepository;
+  private static final int Default_size = 10;
 
   public CursorResponse<PostListResponse> postDate(Long cursor, Integer size) {
      // 21개 조회 (20 + 1)
@@ -47,6 +51,10 @@ public class PostService {
         Long nextCursor = postList.isEmpty() ? null : postList.get(postList.size() - 1).getPostId();
         
         return new CursorResponse<PostListResponse>(contentList,nextCursor,hasNext,size);
+  }
+
+  public PostDetailResponse postDetail(Long postId){
+    return new PostDetailResponse(postRepository.findByPostId(postId));
   }
   
 }
