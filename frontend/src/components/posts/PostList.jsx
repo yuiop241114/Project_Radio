@@ -60,9 +60,9 @@ const BoardList = () => {
   }, 
   [hasNext, loading, cursor]);  // 의존성 배열
 
-  useEffect(() => {
-    getData();
-  }, []);  // 빈 배열 = 컴포넌트 마운트 시 1번만 실행, 이거 없으면 무한 루프
+  // useEffect(() => {
+  //   getData();
+  // }, []);  // 빈 배열 = 컴포넌트 마운트 시 1번만 실행, 이거 없으면 무한 루프
   
   return (
     <div className="board">
@@ -87,11 +87,11 @@ const BoardList = () => {
               <td>{post.postId}</td>
               <td className="title">
                 {/* <Link to={`/post/write/${post.id}`}>{post.title}</Link> */}
-                <Link to={`/post/detail`}>{post.postTitle}</Link>
+                <Link to={`/post/detail/${post.postId}`}>{post.postTitle}</Link>
               </td>
               <td>{post.postAuthor}</td>
               <td>{post.postDate}</td>
-              <td>{post.postViews}</td>
+              <td>{post.postView}</td>
             </tr>
           ))}
         </tbody>

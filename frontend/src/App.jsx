@@ -20,9 +20,9 @@ function App() {
       <Route element={<MainLayout />}>
         <Route path="/" element={<MainPage/>} />
         <Route path="/post" element={<PostList/>}/>
-        <Route path="/post/detail" element={<PostDetail/>}/>
+        <Route path="/post/detail/:postId" element={<PostDetail/>}/>
         <Route path="/post/write" element={<PostWrite/>}/>
-        <Route path="/post/edit" element={<PostEdit/>}/>
+        <Route path="/post/edit/:postId" element={<PostEdit/>}/>
       </Route>
 
       {/* Header 없는 페이지 */}
