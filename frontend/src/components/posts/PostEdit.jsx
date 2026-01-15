@@ -31,11 +31,13 @@ const BoardEdit = () => {
   }, [postId]);
 
   //수정 적용 submit
-  const handleUpdate = (data) => {
-    console.log("게시글 수정:", id, data);
-
-    // TODO: PUT /board/{id}
-    alert("게시글이 수정되었습니다 (임시)");
+  const handleUpdate = async (editTitle, editContent) => {
+    const response = await AxiosToken.put(`/post/edit/${postId}`,
+      { 
+        postTitle: editTitle, 
+        postContent: editContent 
+      }
+    );
     navigate(`/post/detail/${postId}`);
   };
 

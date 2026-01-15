@@ -47,22 +47,6 @@ const BoardDetail = () => {
     return <div className="not-found">게시글을 찾을 수 없습니다.</div>;
   }
 
-
-  // 임시 데이터 (나중에 API 연동)
-  const post = {
-    title: "게시판 구조 공유합니다",
-    author: "junsu",
-    date: "2026-01-03",
-    views: 128,
-    content: `
-React + Spring Boot 게시판 구조를
-MainLayout + Outlet 기반으로 구성하면
-확장성과 유지보수가 굉장히 좋아집니다.
-
-JWT 인증과도 잘 어울립니다.
-    `,
-  };
-
   return (
     <div className="board-detail">
       {/* 제목 */}

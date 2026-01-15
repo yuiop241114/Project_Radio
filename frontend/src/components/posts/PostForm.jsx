@@ -2,20 +2,20 @@ import { useState, useEffect } from "react";
 import "../../styles/postForm.css";
 
 const BoardForm = ({ mode, initialData, onSubmit }) => {
-  const [postTitle, setPostTitle] = useState();
-  const [postContent, setPostContent] = useState();
+  const [editTitle, setEditTitle] = useState();
+  const [editContent, setEditContent] = useState();
 
   // 수정 페이지일 경우 기존 데이터 세팅
   useEffect(() => {
     if (mode === "edit" && initialData) {
-      setPostTitle(initialData.postTitle);
-      setPostContent(initialData.postContent);
+      setEditTitle(initialData.postTitle);
+      setEditContent(initialData.postContent);
     }
   }, [mode, initialData]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ postTitle, postContent });
+    onSubmit(editTitle, editContent);
   };
 
   return (
@@ -26,15 +26,15 @@ const BoardForm = ({ mode, initialData, onSubmit }) => {
         <input
           type="text"
           placeholder="제목을 입력하세요"
-          value={postTitle}
-          onChange={(e) => setPostTitle(e.target.value)}
+          value={editTitle}
+          onChange={(e) => setEditTitle(e.target.value)}
           required
         />
 
         <textarea
           placeholder="내용을 입력하세요"
-          value={postContent}
-          onChange={(e) => setPostContent(e.target.value)}
+          value={editContent}
+          onChange={(e) => setEditContent(e.target.value)}
           required
         />
 

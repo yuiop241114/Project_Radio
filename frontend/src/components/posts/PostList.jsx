@@ -28,7 +28,6 @@ const BoardList = () => {
       setPosts(prev => [...prev, ...postData.data.postList]);
       setCursor(postData.data.nextCursor);
       setHasNext(postData.data.hasNext)
-
     }catch (error) {
       console.error("데이터 로딩 실패:", error);
     } finally {
