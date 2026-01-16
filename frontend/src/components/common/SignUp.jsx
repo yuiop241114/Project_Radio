@@ -99,7 +99,7 @@ const SignUp = () => {
       // 응답 상태 코드 확인 (200 또는 201은 성공)
       if (response.status === 200 || response.status === 201) {
         alert("회원가입이 완료되었습니다!");
-        //navigate("/login");  // 로그인 페이지로 이동, 나중에 페이지 세분화 하면 설정 해제
+        navigate("/login");  // 로그인 페이지로 이동, 나중에 페이지 세분화 하면 설정 해제
       }
     } catch (err) {
       // 에러 발생 시 처리

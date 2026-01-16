@@ -1,4 +1,4 @@
-import { Link, useParams} from "react-router-dom";
+import { Link, useParams, useNavigate} from "react-router-dom";
 import { useState, useEffect} from "react";
 import AxiosToken from "../../api/AxiosToken";
 import "../../styles/postDetail.css";
@@ -9,8 +9,9 @@ const BoardDetail = () => {
   const [postData, setPostData] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-  // useEffect로 감싸기!
+  //게시글 정보 조회
   useEffect(() => {
     const getData = async () => {
       try {
@@ -47,6 +48,22 @@ const BoardDetail = () => {
     return <div className="not-found">게시글을 찾을 수 없습니다.</div>;
   }
 
+  //게시글 삭제 함수
+  const postDel = async () =>{
+    if (!window.confirm('정말 삭제하시겠습니까?')) {
+    return; 
+    }
+
+    try{
+      const response = await AxiosToken.delete(`/post/delete/${postId}`);
+      alert("게시글 삭제 완료");
+      navigate("/post");
+    } catch (error) {
+      console.error('삭제 실패:', error);
+      alert('삭제에 실패했습니다');
+    };
+  }
+
   return (
     <div className="board-detail">
       {/* 제목 */}
@@ -67,10 +84,13 @@ const BoardDetail = () => {
       {/* 버튼 영역 */}
       <div className="detail-actions">
         <Link to="/post" className="btn gray">목록</Link>
+        {localStorage.getItem("username") === postData.postAuthor ? 
+        
         <div className="right">
           <Link to={`/post/edit/${postData.postId}`} className="btn gray">수정</Link>
-          <button className="btn danger">삭제</button>
-        </div>
+          <button className="btn danger" onClick={postDel}>삭제</button>
+        </div> : <div></div>
+        }
       </div>
     </div>
   );
