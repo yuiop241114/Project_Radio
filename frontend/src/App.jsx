@@ -12,6 +12,7 @@ import PostList from './components/posts/PostList';
 import PostDetail from './components/posts/PostDetail';
 import PostWrite from './components/posts/PostWrite';
 import PostEdit from './components/posts/PostEdit';
+import RadioPage from './pages/RadioPage';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/post/detail/:postId" element={<PostDetail/>}/>
         <Route path="/post/write" element={<PostWrite/>}/>
         <Route path="/post/edit/:postId" element={<PostEdit/>}/>
+        <Route path="/radio" element={<RadioPage/>}/>
       </Route>
 
       {/* Header 없는 페이지 */}

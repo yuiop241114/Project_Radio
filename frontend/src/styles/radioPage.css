@@ -1,0 +1,70 @@
+.radio-page {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+}
+
+/* Player */
+.radio-player {
+  background: #1b1b25;
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+}
+
+.radio-art {
+  font-size: 80px;
+  margin-bottom: 16px;
+}
+
+.radio-title {
+  margin: 0;
+  font-size: 24px;
+}
+
+.radio-desc {
+  color: #aaa;
+  margin-bottom: 24px;
+}
+
+.play-btn {
+  background: #ff4d6d;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 24px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.play-btn:hover {
+  background: #ff2f55;
+}
+
+/* radisList */
+.radioList-box {
+  background: #1b1b25;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.radioList-box h3 {
+  margin-bottom: 16px;
+}
+
+.radioList-item {
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.radioList-item:hover {
+  background: #2a2a38;
+}
+
+.radioList-item span {
+  display: block;
+  font-size: 13px;
+  color: #aaa;
+}
