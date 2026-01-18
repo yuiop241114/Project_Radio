@@ -5,7 +5,7 @@ import axiosNoToken from '../../api/AxiosNoToken'
 import '../../styles/signUp.css';
 const SignUp = () => {
   //페이지 이동을 위한 hook
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   //사용자 입력 데이터 저장
   //useState의 경우 상태가 변경되면 자동으로 컴포넌트 재렌더링
@@ -99,7 +99,7 @@ const SignUp = () => {
       // 응답 상태 코드 확인 (200 또는 201은 성공)
       if (response.status === 200 || response.status === 201) {
         alert("회원가입이 완료되었습니다!");
-        navigate("/login");  // 로그인 페이지로 이동, 나중에 페이지 세분화 하면 설정 해제
+        navigate('/login'); 
       }
     } catch (err) {
       // 에러 발생 시 처리
@@ -122,8 +122,6 @@ const SignUp = () => {
     <div className="signup-container">
       <div className="signup-box">
         <h2 className="signup-title">회원가입</h2>
-        <Link to="/" className="login-logo">🎧 Radio Cast</Link>
-
         <form className="signup-form" onSubmit={handleSubmit}>
           <input
             type="text"

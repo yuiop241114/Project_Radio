@@ -1,12 +1,12 @@
 import RadioPlayer from "../components/radio/RadioPlayer";
-import FrequencyList from "../components/radio/FrequencyList";
-import "../styles/radioList.css";
+import RadioList from "../components/radio/RadioList";
+import "../styles/radioPage.css";
 
 const RadioPage = () => {
   return (
     <div className="radio-page">
       <RadioPlayer />
-      <FrequencyList />
+      <RadioList />
     </div>
   );
 };
