@@ -1,6 +1,7 @@
 import React, { useRef, useState , useEffect} from "react";
 import playlist from "./playlist";
 import RadioController from "./RadioController";
+import { radioPlayLogic } from "./radioPlayLogic";
 
 const RadioPlayer = () => {
   const audioRef = useRef(null);
@@ -37,6 +38,20 @@ const RadioPlayer = () => {
     if (!audioRef.current) return;
     if (isPlaying) audioRef.current.play();
   }, [currentIndex]);
+
+  useEffect(() => {
+    if (!currentChannel) return;
+
+    const { trackIndex, offset } = radioPlayLogic(currentChannel);
+
+    setCurrentIndex(trackIndex);
+
+    setTimeout(() => {
+      audioRef.current.currentTime = offset;
+      audioRef.current.play();
+      setIsPlaying(true);
+    }, 300);
+  }, [currentChannel]);
 
   return (
     <div className="radio-player">

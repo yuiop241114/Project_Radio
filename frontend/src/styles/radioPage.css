@@ -79,3 +79,27 @@
   width: 200px;
 }
 
+.radio-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px;
+}
+
+.channel-list {
+  background: #111;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.channel-item {
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.channel-item.active {
+  background: #1db954;
+  color: #000;
+}
+
