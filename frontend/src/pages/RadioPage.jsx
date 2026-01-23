@@ -14,7 +14,11 @@ const RadioPage = () => {
         currentChannel={currentChannel}
         onSelect={setCurrentChannel}
       />
-      <RadioPlayer channel={currentChannel} />
+
+      <div className="radio-main">
+        <RadioInfo channel={currentChannel} />
+        <RadioPlayer channel={currentChannel} />
+      </div>
     </div>
   );
 };

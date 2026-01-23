@@ -1,17 +1,19 @@
 import React from "react";
+import "../../styles/RadioInfo.css";
 
-const RadioInfo = () => {
+const RadioInfo = ({ channel }) => {
+  if (!channel) {
+    return <div className="radio-info">채널을 선택해주세요</div>;
+  }
+
   return (
     <div className="radio-info">
-      <h1 className="radio-title">🎧 Radio Cast LIVE</h1>
-      <p className="radio-desc">
-        지금 이 순간, 음악과 이야기가 흐르는 공간
-      </p>
+      <span className={`status ${channel.isLive ? "live" : "ready"}`}>
+        {channel.isLive ? "ON AIR" : "방송 준비중"}
+      </span>
 
-      <div className="radio-meta">
-        <span>DJ: RadioCast</span>
-        <span>Listeners: 128</span>
-      </div>
+      <h2 className="radio-title">{channel.title}</h2>
+      <p className="radio-desc">{channel.description}</p>
     </div>
   );
 };
