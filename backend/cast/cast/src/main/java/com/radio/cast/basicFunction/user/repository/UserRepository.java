@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<User, Long>{
 
     Optional<User> findByUsername(String name);
 
-    Optional<SignUpResponse> findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
     /**
      * 아이디 중복 확인 Repository

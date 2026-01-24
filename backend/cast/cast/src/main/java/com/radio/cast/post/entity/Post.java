@@ -42,4 +42,30 @@ public class Post {
 
   @Column(nullable = true)
   private Long postView;
+
+  /**
+   * 게시글 수정 엔티티 메소드
+   * @param postTitle
+   * @param postContent
+   */
+  public void update(String postTitle, String postContent){
+    this.postTitle = postTitle;
+    this.postContent = postContent;
+    this.postDate = LocalDateTime.now(); 
+  }
+
+  /**
+   * 게시글 생성 엔티티 메소드
+   * @param postTitle
+   * @param postContent
+   * @param postAuthor
+   */
+  @Builder
+  public Post(String postTitle, String postContent, String postAuthor) {
+      this.postTitle = postTitle;
+      this.postContent = postContent;
+      this.postAuthor = postAuthor;
+      this.postDate = LocalDateTime.now(); 
+      this.postView = (long) 0;
+  }
 }

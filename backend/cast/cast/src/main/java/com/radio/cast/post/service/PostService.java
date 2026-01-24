@@ -5,11 +5,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 import com.radio.cast.post.dto.CursorResponse;
 import com.radio.cast.post.dto.PostDetailResponse;
+import com.radio.cast.post.dto.PostEditRequest;
 import com.radio.cast.post.dto.PostListResponse;
+import com.radio.cast.post.dto.PostWriteRequest;
 import com.radio.cast.post.entity.Post;
 import com.radio.cast.post.repository.PostRepository;
 
@@ -21,6 +24,12 @@ public class PostService {
   private final PostRepository postRepository;
   private static final int Default_size = 10;
 
+  /**
+   * 무한 스크롤 Cursor 서비스
+   * @param cursor
+   * @param size
+   * @return
+   */
   public CursorResponse<PostListResponse> postDate(Long cursor, Integer size) {
      // 21개 조회 (20 + 1)
         List<Post> postList;
@@ -54,7 +63,41 @@ public class PostService {
   }
 
   public PostDetailResponse postDetail(Long postId){
-    return new PostDetailResponse(postRepository.findByPostId(postId));
+    return new PostDetailResponse(postRepository.findByPostId(postId).get());
   }
   
+  /**
+   * 게시글 수정 서비스
+   * @param editData
+   * @return
+   */
+  @Transactional
+  public PostDetailResponse postEdit(PostEditRequest editData){
+    Post post = postRepository.findByPostId(editData.getPostId()).get();
+    // post.setPostTitle(editData.getPostTitle());
+    // post.setPostContent(editData.getPostContent());
+    post.update(editData.getPostTitle(), editData.getPostContent());
+    return new PostDetailResponse(post);
+  }
+
+  /**
+   * 게시글 생성 서비스
+   * @param writeData
+   * @return
+   */
+  @Transactional
+  public PostWriteRequest postWrite(PostWriteRequest writeData){
+    Post writePost = new Post(writeData.getPostTitle(), writeData.getPostContent(), writeData.getPostAuthor());
+    return new PostWriteRequest(postRepository.save(writePost));
+  }
+
+  /**
+   * 게시글 삭제 서비스
+   * @param postId
+   */
+  @Transactional
+  public void postDelete(Long postId){
+    Post post = postRepository.findByPostId(postId).get();
+    postRepository.delete(post);
+  }
 }

@@ -67,7 +67,10 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/swagger-resources/**",
                                 "/swagger-ui.html",
-                                "/api-docs/**"
+                                "/api-docs/**",
+                                "/post/list",
+                                "/post/detail/**",
+                                "/radio/list"
                         ).permitAll()
                     // 정적 파일 허용
                     .requestMatchers("/", "/favicon.ico").permitAll()

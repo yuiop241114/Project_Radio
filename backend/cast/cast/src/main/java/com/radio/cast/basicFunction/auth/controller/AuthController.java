@@ -38,15 +38,20 @@ public class AuthController {
    */
   public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest){
     //로그인 요청 후 accessToken, RefreshTokne 발급
-    String accessToken = jwtUtil.generateToken(loginRequest.getEmail());
-    String refreshToken = jwtUtil.generateRefreshToken(loginRequest.getEmail());
+    // String accessToken = jwtUtil.generateToken(loginRequest.getEmail());
+    // String refreshToken = jwtUtil.generateRefreshToken(loginRequest.getEmail());
+    System.out.println(loginRequest.getPassword());
+    LoginResponse loginResponse = authService.login(loginRequest);
     
 
     //RefreshToken Redis에 저장
-    refreshTokenService.saveRefreshToken(loginRequest.getEmail(), refreshToken, jwtUtil.expiration);
-    SignUpResponse user = authService.userData(loginRequest.getEmail()).get();
+    refreshTokenService.saveRefreshToken(loginRequest.getEmail(), loginResponse.getRefreshToken(), jwtUtil.expiration);
+    SignUpResponse user = new SignUpResponse( authService.userData(loginRequest.getEmail()) );
+    loginResponse.setId(user.getId());
+    loginResponse.setEmail(user.getEmail());
+    loginResponse.setUsername(user.getUsername());
     //accessToken, RefreshToken 반환
-    return ResponseEntity.ok(new LoginResponse(accessToken, refreshToken, user.getId(), user.getEmail(), user.getUsername()));
+    return ResponseEntity.ok(loginResponse);
   }
 
   /**
