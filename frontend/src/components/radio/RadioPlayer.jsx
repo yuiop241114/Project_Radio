@@ -57,7 +57,7 @@ const RadioPlayer = ({ currentChannel }) => {
     }, 300);
   }, [currentChannel]);
 
-  if (!currentTrack) return <div>방송 준비중...</div>;
+  if (!currentTrack) return console.log("데모 플레이리스트 확인");
 
   return (
     <div className="radio-player">
