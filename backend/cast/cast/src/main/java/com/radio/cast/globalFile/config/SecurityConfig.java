@@ -70,7 +70,9 @@ public class SecurityConfig {
                                 "/api-docs/**",
                                 "/post/list",
                                 "/post/detail/**",
-                                "/radio/list"
+                                //해당 코드 아래 경로부터는 추후 결정
+                                "/radio/list",
+                                "/radio/playlist/**"
                         ).permitAll()
                     // 정적 파일 허용
                     .requestMatchers("/", "/favicon.ico").permitAll()
