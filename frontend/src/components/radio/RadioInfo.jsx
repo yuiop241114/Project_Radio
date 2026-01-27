@@ -2,6 +2,7 @@ import React from "react";
 import "../../styles/RadioInfo.css";
 
 const RadioInfo = ({ channel }) => {
+  console.log(channel);
   if (!channel) {
     return <div className="radio-info">채널을 선택해주세요</div>;
   }

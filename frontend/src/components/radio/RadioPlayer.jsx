@@ -8,6 +8,7 @@ const RadioPlayer = ({ currentChannel }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.7);
 
+  console.log(currentChannel)
   const playlist = currentChannel?.playlist || [];
   const currentTrack = playlist[currentIndex];
 

@@ -13,7 +13,7 @@ const RadioPage = () => {
   const getRadioList = async () => {
     try {
       const response = await AxiosToken.get("/radio/list");
-      const data = response.data; // 서버에서 온 데이터를 변수에 담음
+      const data = response.data; // 서버에서 온 데이터를a 변수에 담음
       setRadioChannelList(data); // 리스트 업데이트
       // 상태 변수(radioChannelList)가 아닌, 방금 받은 데이터(data)를 직접 활용!
       if (data && data.length > 0) {
@@ -42,7 +42,7 @@ const RadioPage = () => {
 
       <div className="radio-main">
         <RadioInfo channel={currentChannel} />
-        <RadioPlayer channel={currentChannel} />
+        <RadioPlayer currentChannel={currentChannel} />
       </div>
     </div>
   );
