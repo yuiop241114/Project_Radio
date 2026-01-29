@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import RadioController from "./RadioController";
 import { radioPlayLogic } from "./radioPlayLogic";
+import AxiosToken from "../../api/AxiosToken";
 
 const RadioPlayer = ({ currentChannel }) => {
   const audioRef = useRef(null);
@@ -47,18 +49,26 @@ const RadioPlayer = ({ currentChannel }) => {
   useEffect(() => {
     if (!currentChannel || !audioRef.current) return;
 
-    // 기존 음악 중지
-    audioRef.current.pause();
+    const nowTrack = async () => {
+      // 기존 음악 중지
+      audioRef.current.pause();
 
-    const { trackIndex, offset } = radioPlayLogic(currentChannel);
+      const getData = await AxiosToken.get("/radio/now",
+        { params : {radioChannelId : currentChannel.radioChannelId} }
+      );
 
-    setCurrentIndex(trackIndex);
+      const { trackIndex, offset } = getData.data;
 
-    setTimeout(() => {
-      audioRef.current.currentTime = offset;
-      audioRef.current.play();
-      setIsPlaying(true);
-    }, 200);
+      setCurrentIndex(trackIndex);
+  
+      setTimeout(() => {
+        audioRef.current.currentTime = offset;
+        audioRef.current.play();
+        setIsPlaying(true);
+      }, 200);
+    };
+
+    nowTrack();
   }, [currentChannel]);
 
   if (!currentTrack) return console.log("데모 플레이리스트 확인");

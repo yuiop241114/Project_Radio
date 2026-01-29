@@ -18,7 +18,7 @@ const RadioInfo = ({ channel }) => {
   //   return <div className="loading">데이터를 불러오는 중입니다...</div>;
   // }
   
-  console.log(channel);
+  // console.log(channel);
   if (!channel) {
     return <div className="radio-info">채널을 선택해주세요</div>;
   }
