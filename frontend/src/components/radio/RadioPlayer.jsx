@@ -43,19 +43,22 @@ const RadioPlayer = ({ currentChannel }) => {
   }, [currentIndex]);
 
   //라디오 동기화 핵심
+  // 채널 변경 시 → 새 라디오 시작
   useEffect(() => {
-    if (!currentChannel || playlist.length === 0) return;
+    if (!currentChannel || !audioRef.current) return;
+
+    // 기존 음악 중지
+    audioRef.current.pause();
 
     const { trackIndex, offset } = radioPlayLogic(currentChannel);
 
     setCurrentIndex(trackIndex);
 
     setTimeout(() => {
-      if (!audioRef.current) return;
       audioRef.current.currentTime = offset;
       audioRef.current.play();
       setIsPlaying(true);
-    }, 300);
+    }, 200);
   }, [currentChannel]);
 
   if (!currentTrack) return console.log("데모 플레이리스트 확인");
