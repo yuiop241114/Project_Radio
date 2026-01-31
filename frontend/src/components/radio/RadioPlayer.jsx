@@ -10,9 +10,18 @@ const RadioPlayer = ({ currentChannel }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.7);
 
-  console.log(currentChannel)
-  const playlist = currentChannel?.playlist || [];
+  const [playlist, setPlaylist] = useState({});
   const currentTrack = playlist[currentIndex];
+  
+  //플레이리스트 조회 메소드
+  const getPlaylist = async () =>{
+    console.log(currentChannel)
+    const getData = await AxiosToken.get("/radio/playlist",
+      {params : {playlistId : currentChannel.playlistId}}
+    );
+    setPlaylist(getData.data)
+    console.log(playlist);
+  }
 
   // 볼륨 적용
   useEffect(() => {
@@ -47,8 +56,9 @@ const RadioPlayer = ({ currentChannel }) => {
   //라디오 동기화 핵심
   // 채널 변경 시 → 새 라디오 시작
   useEffect(() => {
-    if (!currentChannel || !audioRef.current) return;
+    // if (!currentChannel || !audioRef.current) return;
 
+    getPlaylist();
     const nowTrack = async () => {
       // 기존 음악 중지
       audioRef.current.pause();
@@ -57,6 +67,7 @@ const RadioPlayer = ({ currentChannel }) => {
         { params : {radioChannelId : currentChannel.radioChannelId} }
       );
 
+      console.log(getData.data);
       const { trackIndex, offset } = getData.data;
 
       setCurrentIndex(trackIndex);
