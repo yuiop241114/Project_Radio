@@ -1,104 +1,113 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import RadioController from "./RadioController";
-import { radioPlayLogic } from "./radioPlayLogic";
 import AxiosToken from "../../api/AxiosToken";
 
 const RadioPlayer = ({ currentChannel }) => {
   const audioRef = useRef(null);
+  const [playlist, setPlaylist] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.7);
+  const [loading, setLoading] = useState(true);
+  const [initialOffset, setInitialOffset] = useState(0); // 누락되었던 상태 추가
 
-  const [playlist, setPlaylist] = useState({});
-  const currentTrack = playlist[currentIndex];
-  
-  //플레이리스트 조회 메소드
-  const getPlaylist = async () =>{
-    console.log(currentChannel)
-    const getData = await AxiosToken.get("/radio/playlist",
-      {params : {playlistId : currentChannel.playlistId}}
-    );
-    setPlaylist(getData.data)
-    console.log(playlist);
-  }
+  // 현재 트랙 계산 (안전하게 처리)
+  const currentTrack = playlist.length > 0 ? playlist[currentIndex] : null;
 
-  // 볼륨 적용
+  const initializeRadio = async () => {
+    if (!currentChannel?.radioChannelId) return;
+
+    try {
+      setLoading(true);
+
+      const [playlistRes, nowRes] = await Promise.all([
+        AxiosToken.get("/radio/playlist", { params: { playlistId: currentChannel.playlistId } }),
+        AxiosToken.get("/radio/now", { params: { radioChannelId: currentChannel.radioChannelId } })
+      ]);
+
+      const newPlaylist = playlistRes.data;
+      const nowData = nowRes.data; // RadioTrackResponse 객체
+
+      setPlaylist(newPlaylist);
+
+      // 🔥 핵심: 백엔드에서 받은 radioTrackId가 playlist의 몇 번째 인덱스인지 찾습니다.
+      const foundIndex = newPlaylist.findIndex(
+        (track) => track.radioTrackId === nowData.radioTrackId
+      );
+
+      // 찾지 못했다면 0번 인덱스 사용
+      setCurrentIndex(foundIndex !== -1 ? foundIndex : 0);
+      setInitialOffset(nowData.offset || 0);
+
+    } catch (error) {
+      console.error("❌ 데이터 로딩 실패:", error);
+    } finally {
+      setTimeout(() => setLoading(false), 300);
+    }
+  };
+
+  // 채널 변경 감지
   useEffect(() => {
-    if (!audioRef.current) return;
-    audioRef.current.volume = volume;
+    initializeRadio();
+    // 채널 바뀔 때 이전 오디오 중지
+    if (audioRef.current) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+    }
+  }, [currentChannel]);
+
+  // 로딩이 끝나고 트랙이 준비되면 오디오 설정 및 재생
+  useEffect(() => {
+    if (!loading && currentTrack && audioRef.current) {
+      console.log("🎵 오디오 설정 및 재생 시도");
+      audioRef.current.currentTime = initialOffset;
+      
+      // 브라우저 정책 대응 (사용자 클릭 후 재생 가능)
+      audioRef.current.play()
+        .then(() => setIsPlaying(true))
+        .catch(err => console.log("▶ 재생을 위해 화면을 한 번 클릭해주세요."));
+    }
+  }, [loading, currentTrack]);
+
+  // 볼륨 조절
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.volume = volume;
   }, [volume]);
 
-  // 재생 / 일시정지
   const togglePlay = () => {
     if (!audioRef.current) return;
-
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
+    if (isPlaying) audioRef.current.pause();
+    else audioRef.current.play();
     setIsPlaying(!isPlaying);
   };
 
-  // 곡 종료 시 다음 곡
   const handleEnded = () => {
     setCurrentIndex((prev) => (prev + 1) % playlist.length);
-    setIsPlaying(true);
   };
 
-  // 곡 변경 시 자동 재생
-  useEffect(() => {
-    if (!audioRef.current || !currentTrack) return;
-    if (isPlaying) audioRef.current.play();
-  }, [currentIndex]);
-
-  //라디오 동기화 핵심
-  // 채널 변경 시 → 새 라디오 시작
-  useEffect(() => {
-    // if (!currentChannel || !audioRef.current) return;
-
-    getPlaylist();
-    const nowTrack = async () => {
-      // 기존 음악 중지
-      audioRef.current.pause();
-
-      const getData = await AxiosToken.get("/radio/now",
-        { params : {radioChannelId : currentChannel.radioChannelId} }
-      );
-
-      console.log(getData.data);
-      const { trackIndex, offset } = getData.data;
-
-      setCurrentIndex(trackIndex);
-  
-      setTimeout(() => {
-        audioRef.current.currentTime = offset;
-        audioRef.current.play();
-        setIsPlaying(true);
-      }, 200);
-    };
-
-    nowTrack();
-  }, [currentChannel]);
-
-  if (!currentTrack) return console.log("데모 플레이리스트 확인");
-
+  // 렌더링 로직: 테두리가 사라지지 않도록 '틀'을 유지하는 방식
   return (
-    <div className="radio-player">
-      <audio
-        ref={audioRef}
-        src={currentTrack.src}
-        onEnded={handleEnded}
-      />
-
-      <RadioController
-        isPlaying={isPlaying}
-        onTogglePlay={togglePlay}
-        volume={volume}
-        onVolumeChange={setVolume}
-        track={currentTrack}
-      />
+    <div className="radio-player" >
+      {loading || !currentTrack ? (
+        <div className="radio-player-loading">
+          <p>📻 라디오 신호를 수신 중입니다... (ID: {currentChannel?.radioChannelId})</p>
+        </div>
+      ) : (
+        <>
+          <audio
+            ref={audioRef}
+            src={currentTrack.audioUrl}
+            onEnded={handleEnded}
+          />
+          <RadioController
+            isPlaying={isPlaying}
+            onTogglePlay={togglePlay}
+            volume={volume}
+            onVolumeChange={setVolume}
+            track={currentTrack}
+          />
+        </>
+      )}
     </div>
   );
 };
