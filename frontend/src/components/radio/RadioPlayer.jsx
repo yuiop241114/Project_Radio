@@ -57,17 +57,17 @@ const RadioPlayer = ({ currentChannel }) => {
   }, [currentChannel]);
 
   // 로딩이 끝나고 트랙이 준비되면 오디오 설정 및 재생
-  useEffect(() => {
-    if (!loading && currentTrack && audioRef.current) {
-      console.log("🎵 오디오 설정 및 재생 시도");
-      audioRef.current.currentTime = initialOffset;
+  // useEffect(() => {
+  //   if (!loading && currentTrack && audioRef.current) {
+  //     console.log("🎵 오디오 설정 및 재생 시도");
+  //     audioRef.current.currentTime = initialOffset;
       
-      // 브라우저 정책 대응 (사용자 클릭 후 재생 가능)
-      audioRef.current.play()
-        .then(() => setIsPlaying(true))
-        .catch(err => console.log("▶ 재생을 위해 화면을 한 번 클릭해주세요."));
-    }
-  }, [loading, currentTrack]);
+  //     // 브라우저 정책 대응 (사용자 클릭 후 재생 가능)
+  //     audioRef.current.play()
+  //       .then(() => setIsPlaying(true))
+  //       .catch(err => console.log("▶ 재생을 위해 화면을 한 번 클릭해주세요."));
+  //   }
+  // }, [loading, currentTrack]);
 
   // 볼륨 조절
   useEffect(() => {
@@ -98,6 +98,16 @@ const RadioPlayer = ({ currentChannel }) => {
             ref={audioRef}
             src={currentTrack.audioUrl}
             onEnded={handleEnded}
+            onLoadedMetadata={() => {
+              console.log("🎶 metadata 로드 완료");
+              audioRef.current.currentTime = initialOffset;
+
+              audioRef.current.play()
+                .then(() => setIsPlaying(true))
+                .catch(() => {
+                  console.log("▶ 사용자 입력 필요");
+                });
+            }}
           />
           <RadioController
             isPlaying={isPlaying}
