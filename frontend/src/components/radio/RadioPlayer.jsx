@@ -29,8 +29,9 @@ const RadioPlayer = ({ currentChannel }) => {
       const nowData = nowRes.data; // RadioTrackResponse 객체
 
       setPlaylist(newPlaylist);
+      console.log(newPlaylist)
 
-      // 🔥 핵심: 백엔드에서 받은 radioTrackId가 playlist의 몇 번째 인덱스인지 찾습니다.
+      //백엔드에서 받은 radioTrackId가 playlist의 몇 번째 인덱스인지 찾습니다.
       const foundIndex = newPlaylist.findIndex(
         (track) => track.radioTrackId === nowData.radioTrackId
       );
@@ -40,7 +41,7 @@ const RadioPlayer = ({ currentChannel }) => {
       setInitialOffset(nowData.offset || 0);
 
     } catch (error) {
-      console.error("❌ 데이터 로딩 실패:", error);
+      console.error("데이터 로딩 실패:", error);
     } finally {
       setTimeout(() => setLoading(false), 300);
     }
