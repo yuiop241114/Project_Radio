@@ -25,8 +25,8 @@ const RadioInfo = ({ channel }) => {
 
   return (
     <div className="radio-info">
-      <span className={`status ${channel.isLive ? "live" : "ready"}`}>
-        {channel.isLive ? "ON AIR" : "방송 준비중"}
+      <span className={`status ${channel.status === true ? "live" : "ready"}`}>
+        {channel.status === true ? "ON AIR" : "방송 준비중"}
       </span>
 
       <h2 className="radio-title">{channel.title}</h2>

@@ -30,6 +30,7 @@ function Login() {
       localStorage.setItem("accessToken", response.data.accessToken);
       localStorage.setItem("refreshToken", response.data.refreshToken);
       localStorage.setItem("username", response.data.username);
+      localStorage.setItem("id", response.data.id);
 
       //메인페이지로 이동
       navigate("/");

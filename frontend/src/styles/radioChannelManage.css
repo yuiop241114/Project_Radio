@@ -1,0 +1,48 @@
+.my-channel-manage {
+  max-width: 600px;
+  margin: 60px auto;
+  color: #fff;
+}
+
+.channel-status-card {
+  background: #1f1f1f;
+  padding: 30px;
+  border-radius: 14px;
+}
+
+.channel-status-card .desc {
+  margin: 12px 0 20px;
+  opacity: 0.8;
+}
+
+.channel-status-card p.on {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.channel-status-card p.off {
+  color: #aaa;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+button.start {
+  background: #4caf50;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button.stop {
+  background: #ff4d4d;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}

@@ -1,0 +1,49 @@
+.channel-create {
+  max-width: 480px;
+  margin: 60px auto;
+  background: #1c1c1c;
+  padding: 32px;
+  border-radius: 12px;
+  color: #fff;
+}
+
+.channel-create h2 {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.channel-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.channel-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 6px;
+}
+
+.channel-form input,
+.channel-form textarea {
+  background: #2a2a2a;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  color: #fff;
+}
+
+.channel-form button {
+  margin-top: 12px;
+  padding: 12px;
+  background: #ff4d4d;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.channel-form button:hover {
+  background: #ff6666;
+}

@@ -26,7 +26,7 @@ const RadioPage = () => {
   useEffect(() => {
     getRadioList();
   },[]);
-  // console.log(radioChannelList);
+  console.log(radioChannelList);
 
   // 중요: 데이터가 로딩 중일 때(currentChannel이 null일 때) 렌더링 방어
   if (!currentChannel) {
@@ -35,6 +35,7 @@ const RadioPage = () => {
 
   return (
     <div className="radio-layout">
+      {/* <a href="/radio/manage/">내 채널 관리</a> */}
       <RadioChannelList
         currentChannel={currentChannel}
         onSelect={setCurrentChannel}

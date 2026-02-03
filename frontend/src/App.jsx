@@ -13,6 +13,8 @@ import PostDetail from './components/posts/PostDetail';
 import PostWrite from './components/posts/PostWrite';
 import PostEdit from './components/posts/PostEdit';
 import RadioPage from './pages/RadioPage';
+import RadioChannelCreate from './components/radio/RadioChannelCreate';
+import RadioChannelManage from './components/radio/RadioChannelManage';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route path="/post/write" element={<PostWrite/>}/>
         <Route path="/post/edit/:postId" element={<PostEdit/>}/>
         <Route path="/radio" element={<RadioPage/>}/>
+        <Route path="/radio/create" element={<RadioChannelCreate/>}/>
+        <Route path="/radio/manage/:radioChannelId" element={<RadioChannelManage/>}/>
       </Route>
 
       {/* Header 없는 페이지 */}

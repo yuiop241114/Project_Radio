@@ -97,7 +97,7 @@ const RadioPlayer = ({ currentChannel }) => {
         <>
           <audio
             ref={audioRef}
-            src={currentTrack.audioUrl}
+            src={"http://localhost:8081" + currentTrack.audioUrl}
             onEnded={handleEnded}
             onLoadedMetadata={() => {
               console.log("🎶 metadata 로드 완료");
