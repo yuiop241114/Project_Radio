@@ -4,32 +4,41 @@ import { useParams } from "react-router-dom";
 import AxiosToken from "../../api/AxiosToken";
 
 const radioChannelManage = () => {
-  const { radioChannelId } = useParams();
+  const [radioChannelId, setRadioChannelId] = useState(null);
   const id = localStorage.getItem("id");
   const [channel, setChannel] = useState(null);
   // console.log(localStorage.getItem("id"))
 
-  const fetchChannel = async () => {
-    const res = await AxiosToken.get('/radio/detail',{
-      params : {radioChannelId : radioChannelId}
-    });
-    setChannel(res.data);
-    // console.log(res.data)
+  const checkChannel = async () => {
+    const getData = await AxiosToken.get('/radio/detail/user', {
+      params : {radioUserId : id}
+    })
+    setChannel(getData.data)
+    setRadioChannelId(getData.data.radioChannelId)
+    // console.log(getData.data);
   };
+
+  // const fetchChannel = async () => {
+  //   const res = await AxiosToken.get('/radio/detail',{
+  //     params : {radioChannelId : radioChannelId}
+  //   });
+  //   setChannel(res.data);
+  //   // console.log(res.data)
+  // };
   
   useEffect(() => {
-    fetchChannel();
+    checkChannel();
   }, [radioChannelId]);
 
   const startBroadcast = async () => {
     await AxiosToken.post(`/radio/channel/start/${radioChannelId}/${id}`);
-    fetchChannel();
+    checkChannel();
     alert("방송 시작");
   };
 
   const stopBroadcast = async () => {
     await AxiosToken.post(`/radio/channel/stop/${radioChannelId}/${id}`);
-    fetchChannel();
+    checkChannel();
     alert("방송 종료");
   };
 

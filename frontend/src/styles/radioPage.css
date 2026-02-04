@@ -111,3 +111,29 @@
   color: #000;
 }
 
+.radio-page-wrapper {
+  padding: 24px;
+}
+
+.radio-page-top {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.manage-btn {
+  background: transparent;
+  border: 1px solid #333;
+  color: #ccc;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.manage-btn:hover {
+  background: #1db954;
+  color: #000;
+  border-color: #1db954;
+}

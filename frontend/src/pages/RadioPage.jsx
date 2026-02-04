@@ -1,4 +1,5 @@
 import { useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import RadioInfo from "../components/radio/RadioInfo";
 import RadioChannelList from "../components/radio/RadioChannelList";
 import RadioPlayer from "../components/radio/RadioPlayer";
@@ -7,6 +8,7 @@ import AxiosToken from "../api/AxiosToken";
 import "../styles/radioPage.css";
 
 const RadioPage = () => {
+  const navigate = useNavigate();
   const [radioChannelList, setRadioChannelList] = useState([]);
   const [currentChannel, setCurrentChannel] = useState(null);
 
@@ -34,16 +36,28 @@ const RadioPage = () => {
   }
 
   return (
-    <div className="radio-layout">
-      {/* <a href="/radio/manage/">내 채널 관리</a> */}
-      <RadioChannelList
-        currentChannel={currentChannel}
-        onSelect={setCurrentChannel}
-      />
+     <div className="radio-page-wrapper">
+      {/* 🔥 상단 액션 바 */}
+      <div className="radio-page-top">
+        <button
+          className="manage-btn"
+          onClick={() =>
+            navigate(`/radio/manage`)
+          }
+        >
+          ⚙ 채널 관리
+        </button>
+      </div>
+      <div className="radio-layout">
+        <RadioChannelList
+          currentChannel={currentChannel}
+          onSelect={setCurrentChannel}
+        />
 
-      <div className="radio-main">
-        <RadioInfo channel={currentChannel} />
-        <RadioPlayer currentChannel={currentChannel} />
+        <div className="radio-main">
+          <RadioInfo channel={currentChannel} />
+          <RadioPlayer currentChannel={currentChannel} />
+        </div>
       </div>
     </div>
   );

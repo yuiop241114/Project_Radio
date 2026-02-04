@@ -28,7 +28,7 @@ function App() {
         <Route path="/post/edit/:postId" element={<PostEdit/>}/>
         <Route path="/radio" element={<RadioPage/>}/>
         <Route path="/radio/create" element={<RadioChannelCreate/>}/>
-        <Route path="/radio/manage/:radioChannelId" element={<RadioChannelManage/>}/>
+        <Route path="/radio/manage" element={<RadioChannelManage/>}/>
       </Route>
 
       {/* Header 없는 페이지 */}
