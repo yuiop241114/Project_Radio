@@ -38,14 +38,21 @@ const RadioPage = () => {
   return (
      <div className="radio-page-wrapper">
       {/* 🔥 상단 액션 바 */}
+      
       <div className="radio-page-top">
+        <button
+          className="create-btn"
+          onClick={() => navigate("/radio/create")}
+        >
+          ➕ 채널 생성
+        </button>
         <button
           className="manage-btn"
           onClick={() =>
             navigate(`/radio/manage`)
           }
         >
-          ⚙ 채널 관리
+          ⚙ 내 채널 관리
         </button>
       </div>
       <div className="radio-layout">

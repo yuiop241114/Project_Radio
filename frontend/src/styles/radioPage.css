@@ -118,9 +118,27 @@
 .radio-page-top {
   display: flex;
   justify-content: flex-end;
+  gap: 10px;
   margin-bottom: 12px;
 }
 
+/* 채널 생성 버튼 */
+.create-btn {
+  background: #1db954;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.create-btn:hover {
+  transform: scale(1.05);
+}
+
+/* 채널 관리 버튼 (기존 스타일 유지) */
 .manage-btn {
   background: transparent;
   border: 1px solid #333;

@@ -4,10 +4,11 @@ import AxiosToken from "../../api/AxiosToken";
 
 const RadioChannelCreate = () => {
   const [form, setForm] = useState({
-    name: "",
-    description: "",
-    playlistId: ""
+    radioChannelName: "",
+    radioUserId: localStorage.getItem("id"),
+    description: ""
   });
+  const [files, setFiles] = useState([]); // mp3 파일들
 
   const handleChange = (e) => {
     setForm({
@@ -17,15 +18,26 @@ const RadioChannelCreate = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      await AxiosToken.post("/radio/channel", form);
-      alert("📻 채널이 생성되었습니다!");
-    } catch (err) {
-      console.error(err);
-      alert("채널 생성 실패");
-    }
+  const formData = new FormData();
+  formData.append("radioChannelName", form.radioChannelName);
+  formData.append("radioUserId", form.radioUserId);
+  formData.append("description", form.description);
+
+  for (let file of files) {
+    formData.append("tracks", file);
+  }
+
+  try {
+        await AxiosToken.post("/radio/channel", formData, {
+          headers: { "Content-Type": "multipart/form-data"}
+        });
+        alert("📻 채널이 생성되었습니다!");
+      } catch (err) {
+        console.error(err);
+        alert("채널 생성 실패");
+      }
   };
 
   return (
@@ -37,8 +49,8 @@ const RadioChannelCreate = () => {
           채널 이름
           <input
             type="text"
-            name="name"
-            value={form.name}
+            name="radioChannelName"
+            value={form.radioChannelName}
             onChange={handleChange}
             required
           />
@@ -54,13 +66,12 @@ const RadioChannelCreate = () => {
         </label>
 
         <label>
-          플레이리스트 ID
+          음원 파일 업로드 (ctrl키를 사용하여 여러 파일 선택 가능)
           <input
-            type="number"
-            name="playlistId"
-            value={form.playlistId}
-            onChange={handleChange}
-            required
+            type="file"
+            accept="audio/mpeg"
+            multiple
+            onChange={(e) => setFiles(e.target.files)}
           />
         </label>
 
