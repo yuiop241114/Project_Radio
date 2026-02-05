@@ -179,11 +179,11 @@ public class RadioService {
 
     //트랙 저장
     for (MultipartFile file : data.getTracks()) {
-
       String audioUrl = mp3Util.saveMp3AndGetPath(file, channel.getRadioChannelId());
-
+      
       File realFile = new File("src/main/resources/static" + audioUrl);
       long duration = mp3Util.getDurationInSeconds(realFile);
+      // System.out.println("시간 추출 결과 : " + duration);
 
       //파일명에서 제목, 가수명 분리
       //확장자 제거 (예: "Song - Artist.mp3" -> "Song - Artist")

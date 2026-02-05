@@ -50,6 +50,7 @@ dependencies {
  	//Apache Tika + mp3spi
 	implementation 'org.apache.tika:tika-core:2.9.1'
 	implementation 'org.apache.tika:tika-parsers-standard-package:2.9.1'
+	implementation 'com.mpatric:mp3agic:0.9.1'
 
 }	
 

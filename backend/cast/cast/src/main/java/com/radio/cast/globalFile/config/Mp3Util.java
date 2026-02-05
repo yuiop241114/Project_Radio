@@ -6,6 +6,9 @@ import org.apache.tika.parser.mp3.Mp3Parser;
 import org.apache.tika.sax.BodyContentHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.mpatric.mp3agic.Mp3File;
+
 import org.apache.tika.parser.ParseContext;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -21,26 +24,35 @@ public class Mp3Util {
    * @return
    */
   public static long getDurationInSeconds(File file) {
-    try (FileInputStream input = new FileInputStream(file)) {
+    // try (FileInputStream input = new FileInputStream(file)) {
+    //   BodyContentHandler handler = new BodyContentHandler();
+    //   Metadata metadata = new Metadata();
+    //   // System.out.println("메타 데이터 : " + metadata.get("xmpDM:duration"));
+    //   // System.out.println("메타 데이터 : " + metadata.get("samplerate"));
+    //   // System.out.println("메타 데이터 : " + metadata.get("channels"));
+    //   ParseContext context = new ParseContext();
 
-      BodyContentHandler handler = new BodyContentHandler();
-      Metadata metadata = new Metadata();
-      ParseContext context = new ParseContext();
+    //   Mp3Parser parser = new Mp3Parser();
+    //   parser.parse(input, handler, metadata, context);
 
-      Mp3Parser parser = new Mp3Parser();
-      parser.parse(input, handler, metadata, context);
+    //   String duration = metadata.get("xmpDM:duration"); // milliseconds
 
-      String duration = metadata.get("xmpDM:duration"); // milliseconds
+    //   if (duration == null) return 0L;
 
-      if (duration == null) return 0L;
+    //   double millis = Double.parseDouble(duration);
+    //   return (long) (millis / 1000);
 
-      double millis = Double.parseDouble(duration);
-      return (long) (millis / 1000);
-
-    } catch (Exception e) {
-        e.printStackTrace();
-        return 0L;
-    }
+    // } catch (Exception e) {
+    //     e.printStackTrace();
+    //     return 0L;
+    // }
+    try {
+            Mp3File mp3 = new Mp3File(file);
+            return mp3.getLengthInSeconds();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0L;
+        }
   }
 
   /**
@@ -71,12 +83,14 @@ public class Mp3Util {
     Files.createDirectories(uploadPath);
 
     // 3. 파일명 생성
-    String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-    File savedFile = uploadPath.resolve(filename).toFile();
+    // String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+    // File savedFile = uploadPath.resolve(filename).toFile();
+
+    File savedFile = uploadPath.resolve(file.getOriginalFilename()).toFile();
 
     // 4. 저장
     file.transferTo(savedFile);
 
-    return "/audio/channel_" + channelId + "/" + filename;
+    return "/audio/channel_" + channelId + "/" + file.getOriginalFilename();
   }
 }
