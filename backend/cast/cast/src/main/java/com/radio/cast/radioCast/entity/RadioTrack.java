@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +15,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "radio_track")
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class RadioTrack {
 
     @Id
@@ -23,12 +27,12 @@ public class RadioTrack {
     @Column(name = "playlist_id")
     private Long playlistId;
 
-    @Column(name = "radio_track_name")
-    private String title;
+    @Column(name = "radio_track_title")
+    private String radioTrackTitle;
 
     private String artist;
 
-    private int duration;
+    private Long duration;
 
     @Column(name = "audio_url")
     private String audioUrl;

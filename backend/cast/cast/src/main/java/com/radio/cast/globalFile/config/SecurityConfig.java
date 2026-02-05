@@ -72,7 +72,10 @@ public class SecurityConfig {
                                 "/post/detail/**",
                                 //해당 코드 아래 경로부터는 추후 결정
                                 "/radio/list",
-                                "/radio/playlist/**"
+                                "/radio/playlist/**",
+                                "/radio/now/**",
+                                "/audio/**",
+                                "/radio/tracks/**"
                         ).permitAll()
                     // 정적 파일 허용
                     .requestMatchers("/", "/favicon.ico").permitAll()

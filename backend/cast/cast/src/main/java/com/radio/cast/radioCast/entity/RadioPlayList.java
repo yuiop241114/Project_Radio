@@ -8,10 +8,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "radio_playlist")
 @Getter
+@Setter
 @NoArgsConstructor
 public class RadioPlayList {
   @Id
