@@ -1,8 +1,10 @@
 import "../../styles/radioChannelCreate.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AxiosToken from "../../api/AxiosToken";
 
 const RadioChannelCreate = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     radioChannelName: "",
     radioUserId: localStorage.getItem("id"),
@@ -30,10 +32,11 @@ const RadioChannelCreate = () => {
   }
 
   try {
-        await AxiosToken.post("/radio/channel", formData, {
+        await AxiosToken.post("/radio/create", formData, {
           headers: { "Content-Type": "multipart/form-data"}
         });
         alert("📻 채널이 생성되었습니다!");
+        navigate("/radio");
       } catch (err) {
         console.error(err);
         alert("채널 생성 실패");
