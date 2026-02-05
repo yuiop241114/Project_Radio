@@ -99,6 +99,7 @@ const RadioPlayer = ({ currentChannel }) => {
             ref={audioRef}
             src={"http://localhost:8081" + currentTrack.audioUrl}
             onEnded={handleEnded}
+            preload="auto"
             onLoadedMetadata={() => {
               console.log("🎶 metadata 로드 완료");
               audioRef.current.currentTime = initialOffset;
