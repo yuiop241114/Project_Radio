@@ -1,8 +1,42 @@
+/* main-container 수정 */
 .main-container {
   flex: 1;
   width: 100%;
 
+  /* 요소를 세로(위아래)로 나열하게 변경 */
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column; 
+  
+  /* 위아래 정렬은 수동으로 제어하기 위해 center 제거 또는 조정 */
+  align-items: center; 
+  
+  /* 섹션들 사이의 간격을 벌려줍니다 (2rem = 약 32px) */
+  gap: 4rem; 
+  
+  /* 페이지 상단에 너무 붙지 않게 여백 추가 */
+  padding: 2rem 0;
+}
+
+.hero-buttons{
+  padding-top: 10px;
+}
+/* 각 섹션의 너비를 확보 */
+.section, .hero {
+  width: 100%;
+  max-width: 1200px; /* 너무 퍼지지 않게 최대 너비 설정 */
+  padding: 0 20px;   /* 양옆 여백 */
+}
+
+.radio-card {
+  padding-top: 20px;
+}
+
+.status.live {
+  background: #22c55e;
+  color: #000;
+}
+
+.status.ready {
+  background: #444;
+  color: #aaa;
 }
