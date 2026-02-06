@@ -47,7 +47,7 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.5'
 
- 	//Apache Tika + mp3spi
+ 	//Apache Tika + mp3spi / mp3agic
 	implementation 'org.apache.tika:tika-core:2.9.1'
 	implementation 'org.apache.tika:tika-parsers-standard-package:2.9.1'
 	implementation 'com.mpatric:mp3agic:0.9.1'
