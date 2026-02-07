@@ -82,3 +82,8 @@ Redis에서 토큰 관리
 Axios Interceptor를 활용한 토큰 자동 첨부
 
 인증이 필요한 API 접근 제어
+
+## 실제 서비스 화면
+### 회원 기능 
+![라디오 프로젝트 회원가입](https://github.com/user-attachments/assets/aee33868-759d-427f-955a-2f63626e47eb)
+
