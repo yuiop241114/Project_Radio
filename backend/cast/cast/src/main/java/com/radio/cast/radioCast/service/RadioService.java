@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.radio.cast.globalFile.config.Mp3Util;
+import com.radio.cast.globalFile.dto.Mp3SaveResponse;
 import com.radio.cast.radioCast.dto.RadioChannelCreateRequest;
 import com.radio.cast.radioCast.dto.RadioTrackResponse;
 import com.radio.cast.radioCast.entity.RadioChannel;
@@ -179,10 +180,11 @@ public class RadioService {
 
     //트랙 저장
     for (MultipartFile file : data.getTracks()) {
-      String audioUrl = mp3Util.saveMp3AndGetPath(file, channel.getRadioChannelId());
+      // String audioUrl = mp3Util.saveMp3AndGetPath(file, channel.getRadioChannelId());
+      // File realFile = new File("src/main/resources/static" + audioUrl);
+      Mp3SaveResponse result = mp3Util.saveMp3AndGetPath(file, channel.getRadioChannelId());
       
-      File realFile = new File("src/main/resources/static" + audioUrl);
-      long duration = mp3Util.getDurationInSeconds(realFile);
+      long duration = mp3Util.getDurationInSeconds(result.getFile());
       // System.out.println("시간 추출 결과 : " + duration);
 
       //파일명에서 제목, 가수명 분리
@@ -209,7 +211,7 @@ public class RadioService {
           .radioTrackTitle(title)
           .artist(artist)
           .duration(duration)
-          .audioUrl(audioUrl)
+          .audioUrl(result.getAudioUrl())
           .trackOrder(order++)
           .build();
 

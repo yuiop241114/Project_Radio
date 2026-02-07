@@ -4,10 +4,12 @@ import java.io.File;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.mp3.Mp3Parser;
 import org.apache.tika.sax.BodyContentHandler;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mpatric.mp3agic.Mp3File;
+import com.radio.cast.globalFile.dto.Mp3SaveResponse;
 
 import org.apache.tika.parser.ParseContext;
 import java.io.FileInputStream;
@@ -18,6 +20,9 @@ import java.nio.file.Paths;
 
 @Component
 public class Mp3Util {
+  @Value("${file.upload-path}")
+  private String uploadRoot;
+
   /**
    * mp3 재생 시간 추출
    * @param file
@@ -62,35 +67,22 @@ public class Mp3Util {
    * @return
    * @throws IOException
    */
-  public String saveMp3AndGetPath(MultipartFile file, Long channelId) throws IOException{
-    // String baseDir = "src/main/resources/static/audio/channel_" + channelId;
-    // File dir = new File(baseDir);
-    // if (!dir.exists()) dir.mkdirs();
+  public Mp3SaveResponse saveMp3AndGetPath(MultipartFile file, Long channelId) throws IOException{
+     Path uploadPath = Paths.get(uploadRoot, "audio", "channel_" + channelId)
+                .toAbsolutePath()
+                .normalize();
 
-    // String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-    // File savedFile = new File(dir, filename);
+        // 폴더 생성
+        Files.createDirectories(uploadPath);
 
-    // file.transferTo(savedFile);
+        String filename = file.getOriginalFilename();
+        Path filePath = uploadPath.resolve(filename);
 
-    // return "/audio/channel_" + channelId + "/" + filename;
+        // 저장
+        file.transferTo(filePath.toFile());
+        String audioUrl = "/audio/channel_" + channelId + "/" + filename;
 
-    // 1. 프로젝트 루트 경로를 기준으로 절대 경로 생성
-    String rootPath = System.getProperty("user.dir"); 
-    Path uploadPath = Paths.get(rootPath, "src", "main", "resources", "static", "audio", "channel_" + channelId)
-                           .toAbsolutePath().normalize();
-
-    // 2. 폴더 생성 (이미 있으면 무시, 없으면 상위 폴더까지 싹 다 생성)
-    Files.createDirectories(uploadPath);
-
-    // 3. 파일명 생성
-    // String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-    // File savedFile = uploadPath.resolve(filename).toFile();
-
-    File savedFile = uploadPath.resolve(file.getOriginalFilename()).toFile();
-
-    // 4. 저장
-    file.transferTo(savedFile);
-
-    return "/audio/channel_" + channelId + "/" + file.getOriginalFilename();
+        // DB / 프론트로 내려줄 URL
+        return new Mp3SaveResponse(audioUrl, filePath.toFile());
   }
 }
