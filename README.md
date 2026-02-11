@@ -16,7 +16,7 @@ Spring Boot(Gradle)
 
 Spring Security + JWT 인증
 
-JPA 
+JPA(Hibernate)
 
 MySQL
 
