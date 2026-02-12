@@ -2,12 +2,14 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: "http://localhost:8081",
+  withCredentials: true   //쿠키 사용을 위한 설정
 });
 
 // 요청 시 자동으로 Authorization 헤더에 Token 추가
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("accessToken");
-  if (token) {
+  // refresh 요청이면 Authorization 붙이지 않음
+  if (token && !config.url.includes("/auth/refreshRT")) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
@@ -26,13 +28,9 @@ api.interceptors.response.use(
 
       try {
         // refresh 토큰으로 재발급 요청
-        const res = await axios.post(
-          "http://localhost:8081/auth/refreshRT",
-          {},
-          { withCredentials: true } // refreshToken이 쿠키에 있다면 필수
-        );
+        const res = await api.post("/auth/refreshRT");
 
-        const newAccessToken = res.data.accessToken;
+        const newAccessToken = res.data;
 
         // 새 accessToken 저장
         localStorage.setItem("accessToken", newAccessToken);
@@ -46,7 +44,7 @@ api.interceptors.response.use(
       } catch (refreshError) {
         // refresh도 실패 → 로그아웃 처리
         localStorage.removeItem("accessToken");
-        window.location.href = "/login";
+        // window.location.href = "/login";
       }
     }
 

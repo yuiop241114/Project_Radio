@@ -21,6 +21,8 @@ function Login() {
       const response = await axios.post("http://localhost:8081/auth/login", {
         email: email,
         password: password,
+      },{
+        withCredentials: true   //refreshToken을 쿠키에 저장하기 위해 필수
       });
 
       // 서버에서 받은 JWT 토큰
@@ -28,7 +30,7 @@ function Login() {
 
       // 토큰 저장 (LocalStorage)
       localStorage.setItem("accessToken", response.data.accessToken);
-      localStorage.setItem("refreshToken", response.data.refreshToken);
+      localStorage.setItem("email", email);
       localStorage.setItem("username", response.data.username);
       localStorage.setItem("id", response.data.id);
 
