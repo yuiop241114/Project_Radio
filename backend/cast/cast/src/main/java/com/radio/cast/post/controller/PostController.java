@@ -20,6 +20,7 @@ import com.radio.cast.post.dto.PostListResponse;
 import com.radio.cast.post.dto.PostWriteRequest;
 import com.radio.cast.post.service.PostService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -27,6 +28,23 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/post")
 public class PostController {
   private final PostService postService;
+
+  /**
+   * IP 추출 메소드
+   * @param request
+   * @return
+   */
+  private String getClientIp(HttpServletRequest request) {
+
+    //배포환경을 고려한 X-Forwarded-For
+    String ip = request.getHeader("X-Forwarded-For");
+
+    if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
+        ip = request.getRemoteAddr();
+    }
+
+    return ip;
+  }
 
   /**
    * 게시글 리스트 조회(무한 스크롤) 컨트롤러
@@ -91,7 +109,7 @@ public class PostController {
     return ResponseEntity.noContent().build();
   }
   
-  public void viewCount(){
-    
+  public void increaseViewCount(){
+
   }
 }
