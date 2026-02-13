@@ -15,11 +15,18 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtUtil {
     private final SecretKey secretKey;
-    public long expiration;
+    public long accessExpiration;
+    public long refreshExpiration;
 
-    public JwtUtil(@Value("${jwt.secret}") String secret, @Value("${jwt.expiration}") long expiration) {
+    public JwtUtil(
+        @Value("${jwt.secret}") String secret, 
+        @Value("${jwt.accessExpiration}") long accessExpiration,
+        @Value("${jwt.refreshExpiration}") long refreshExpiration
+
+    ) {
         this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
-        this.expiration = expiration;
+        this.accessExpiration = accessExpiration;
+        this.refreshExpiration = refreshExpiration;
     }
 
     // JWT 생성(Access 토큰 생성)
@@ -27,7 +34,7 @@ public class JwtUtil {
         return Jwts.builder()
                 .subject(email)
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + expiration))
+                .expiration(new Date(System.currentTimeMillis() + accessExpiration))
                 .signWith(secretKey)
                 .compact();
     }
@@ -37,7 +44,7 @@ public class JwtUtil {
          return Jwts.builder()
             .subject(email)
             .issuedAt(new Date())
-            .expiration(new Date(System.currentTimeMillis() + expiration))
+            .expiration(new Date(System.currentTimeMillis() + refreshExpiration))
             .signWith(secretKey)
             .compact();
     }

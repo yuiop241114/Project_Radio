@@ -70,6 +70,7 @@ public class SecurityConfig {
                                 "/api-docs/**",
                                 "/post/list",
                                 "/post/detail/**",
+                                "/auth/refreshRT",
                                 //해당 코드 아래 경로부터는 추후 결정
                                 "/radio/list",
                                 "/radio/playlist/**",

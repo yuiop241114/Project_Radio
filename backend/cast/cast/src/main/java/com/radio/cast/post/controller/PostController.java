@@ -90,4 +90,8 @@ public class PostController {
     postService.postDelete(postId);
     return ResponseEntity.noContent().build();
   }
+  
+  public void viewCount(){
+    
+  }
 }

@@ -35,7 +35,20 @@ public class JwtFilter extends OncePerRequestFilter{
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7); // "Bearer " 제거
-            username = jwtUtil.getUsernameFromToken(token);
+            try {
+                username = jwtUtil.getUsernameFromToken(token);
+
+            } catch (io.jsonwebtoken.ExpiredJwtException e) {
+                //AccessToken 만료 → 401 반환
+                //토큰 재발급시 401을 반환하여 프론트에서 재발급 실행
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+
+            } catch (Exception e) {
+                //기타 JWT 오류 (서명 오류, 위조 등)
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            }
         }
 
         // 2) username이 있고 현재 SecurityContext에 인증이 없으면 인증 처리 진행
