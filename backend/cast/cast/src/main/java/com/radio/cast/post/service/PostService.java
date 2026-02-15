@@ -1,9 +1,11 @@
 package com.radio.cast.post.service;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,12 +18,14 @@ import com.radio.cast.post.dto.PostWriteRequest;
 import com.radio.cast.post.entity.Post;
 import com.radio.cast.post.repository.PostRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class PostService {
   private final PostRepository postRepository;
+  private final RedisTemplate redisTemplate;
   private static final int Default_size = 10;
 
   /**
@@ -62,7 +66,26 @@ public class PostService {
         return new CursorResponse<PostListResponse>(contentList,nextCursor,hasNext,size);
   }
 
-  public PostDetailResponse postDetail(Long postId){
+  /**
+   * 게시글 상세 조회 서비스
+   * @param postId
+   * @return
+   */
+  public PostDetailResponse postDetail(Long postId, String clientIp){
+    String ipKey = "post:view:ip:" + postId + ":" + clientIp;
+    String viewKey = "post:view:" + postId;
+
+    // 중복 조회 체크
+    if (!redisTemplate.hasKey(ipKey)) {
+
+        // 조회수 증가 (Atomic)
+        redisTemplate.opsForValue().increment(viewKey);
+
+        // 10분 TTL 설정
+        redisTemplate.opsForValue()
+                .set(ipKey, "1", Duration.ofMinutes(10));
+    }
+
     return new PostDetailResponse(postRepository.findByPostId(postId).get());
   }
   

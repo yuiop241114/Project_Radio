@@ -66,8 +66,13 @@ public class PostController {
    * @return
    */
   @GetMapping("/detail")
-  public ResponseEntity<PostDetailResponse> postDetail(@RequestParam Long postId){
-    return ResponseEntity.ok(postService.postDetail(postId));
+  public ResponseEntity<PostDetailResponse> postDetail(
+    @RequestParam Long postId,
+    HttpServletRequest request
+  ){
+    //조회 사용자 IP 추출
+    String clientIp = getClientIp(request);
+    return ResponseEntity.ok(postService.postDetail(postId, clientIp));
   }
 
   /**
