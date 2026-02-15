@@ -77,7 +77,7 @@ mp3 파일을 컨트롤러를 통해 직접 스트리밍
 
 로그인 시 JWT 발급
 
-Redis에서 토큰 관리
+Redis를 사용한 토큰 재발급
 
 Axios Interceptor를 활용한 토큰 자동 첨부
 
