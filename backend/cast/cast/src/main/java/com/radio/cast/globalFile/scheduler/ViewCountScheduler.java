@@ -3,8 +3,10 @@ package com.radio.cast.globalFile.scheduler;
 import java.util.Set;
 
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.radio.cast.post.repository.PostRepository;
 
@@ -16,6 +18,7 @@ public class ViewCountScheduler {
   private final RedisTemplate<String, String> redisTemplate;
   private final PostRepository postRepository;
 
+  @Transactional
   @Scheduled(fixedRate = 300000)//5분마다 스케줄러 실행
   public void viewCount(){
     Set<String> keys = redisTemplate.keys("post:view:*");
@@ -30,7 +33,7 @@ public class ViewCountScheduler {
 
         int viewCount = Integer.parseInt(value);
 
-        // postRepository.updateViewCount(postId, viewCount);
+        postRepository.updateViewCount(postId, viewCount);
     }
   }
 }
