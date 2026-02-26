@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef} from "react";
 import AxiosToken from "../../api/AxiosToken";
+import {formatTime} from "../common/FormatTime";
 
 import "../../styles/postList.css"
 
@@ -89,7 +90,7 @@ const BoardList = () => {
                 <Link to={`/post/detail/${post.postId}`}>{post.postTitle}</Link>
               </td>
               <td>{post.postAuthor}</td>
-              <td>{post.postDate}</td>
+              <td>{formatTime(post.postDate)}</td>
               <td>{post.postView}</td>
             </tr>
           ))}

@@ -3,6 +3,10 @@ import axios from 'axios'
 import './App.css'
 import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom';
 
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/ko'; // 한국어 설정
+
 import MainPage from './pages/MainPage';
 import Login from './components/common/Login';
 import MainLayout from './pages/layout/MainLayout';
@@ -17,6 +21,9 @@ import RadioChannelCreate from './components/radio/RadioChannelCreate';
 import RadioChannelManage from './components/radio/RadioChannelManage';
 
 function App() {
+  dayjs.extend(relativeTime);
+  dayjs.locale('ko');
+  
   return (
     <Routes>
       {/* Header 포함 영역 */}

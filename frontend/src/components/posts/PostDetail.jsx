@@ -1,6 +1,7 @@
 import { Link, useParams, useNavigate} from "react-router-dom";
 import { useState, useEffect} from "react";
 import AxiosToken from "../../api/AxiosToken";
+import {formatTime} from "../common/FormatTime";
 import "../../styles/postDetail.css";
 
 const BoardDetail = () => {
@@ -20,7 +21,7 @@ const BoardDetail = () => {
         const response = await AxiosToken.get("/post/detail", {
           params: { postId: postId }
         });
-        
+        // console.log(response.data);
         setPostData(response.data);
         
       } catch (err) {
@@ -72,8 +73,8 @@ const BoardDetail = () => {
       {/* 메타 정보 */}
       <div className="detail-meta">
         <span>작성자: {postData.postAuthor}</span>
-        <span>작성일: {postData.postDate}</span>
-        <span>조회수: {postData.postViews}</span>
+        <span>작성일: {formatTime(postData.postDate)}</span>
+        <span>조회수: {postData.postView}</span>
       </div>
 
       {/* 본문 */}
