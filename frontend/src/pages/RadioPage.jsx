@@ -20,6 +20,7 @@ const RadioPage = () => {
       // 상태 변수(radioChannelList)가 아닌, 방금 받은 데이터(data)를 직접 활용!
       if (data && data.length > 0) {
         setCurrentChannel(data[0]); 
+        console.log("현재 채널 정보 : ", data[0])
       }
     } catch (error) {
       console.error("데이터 로드 실패:", error);
@@ -28,7 +29,7 @@ const RadioPage = () => {
   useEffect(() => {
     getRadioList();
   },[]);
-  console.log(radioChannelList);
+  // console.log(radioChannelList); 
 
   // 중요: 데이터가 로딩 중일 때(currentChannel이 null일 때) 렌더링 방어
   if (!currentChannel) {
@@ -63,7 +64,8 @@ const RadioPage = () => {
 
         <div className="radio-main">
           <RadioInfo channel={currentChannel} />
-          <RadioPlayer currentChannel={currentChannel} />
+          {currentChannel.status ? <RadioPlayer currentChannel={currentChannel} /> : <div></div>}
+          {/* <RadioPlayer currentChannel={currentChannel} /> */}
         </div>
       </div>
     </div>
