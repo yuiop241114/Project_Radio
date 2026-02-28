@@ -42,7 +42,7 @@ const radioChannelManage = () => {
     alert("방송 종료");
   };
 
-  if (!channel) return null;
+  if (!channel) return <h2 className="my-channel-manage">생성한 채널이 존재하지 않습니다</h2>;
 
   return (
     <div className="my-channel-manage">
