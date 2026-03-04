@@ -80,6 +80,8 @@ public class SecurityConfig {
                         ).permitAll()
                     // 정적 파일 허용
                     .requestMatchers("/", "/favicon.ico").permitAll()
+                    // 채팅 기능 인증 없이 테스트를 위해 설정
+                    .requestMatchers("/ws-chat/**").permitAll()
                     // 나머지는 인증 필요
                     .anyRequest().authenticated()
             )
