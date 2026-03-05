@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ChatMessageDto {
-  private Long chatChannelId;
+  private Long radioChannelId;
   private String sender;
   private String content;
 }

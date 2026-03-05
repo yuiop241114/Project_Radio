@@ -16,9 +16,9 @@ public class Chat {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Long chatId;
 
-  private Long chatChannelId;
+  private Long radioChannelId;
 
   private String sender;
 
@@ -26,8 +26,8 @@ public class Chat {
 
   private LocalDateTime createdAt;
 
-  public Chat(Long chatChannelId, String sender, String content) {
-      this.chatChannelId = chatChannelId;
+  public Chat(Long radioChannelId, String sender, String content) {
+      this.radioChannelId = radioChannelId;
       this.sender = sender;
       this.content = content;
       this.createdAt = LocalDateTime.now();

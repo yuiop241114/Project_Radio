@@ -15,8 +15,8 @@ public class ChatService {
   private final ChatMessageRepository chatMessageRepository;
 
   @Transactional
-  public ChatMessageDto saveMessage(Long chatChanneId, ChatMessageDto chatDto){
-    Chat chatEntity = new Chat(chatChanneId, chatDto.getSender(), chatDto.getContent());
+  public ChatMessageDto saveMessage(Long radioChannelId, ChatMessageDto chatDto){
+    Chat chatEntity = new Chat(radioChannelId, chatDto.getSender(), chatDto.getContent());
     chatMessageRepository.save(chatEntity);
     return chatDto;
   }

@@ -17,14 +17,14 @@ import lombok.RequiredArgsConstructor;
 public class ChatController {
   private final ChatService chatService;
 
-  @MessageMapping("/chat/{chatChannelId}")
-  @SendTo("/topic/chatChannel/{chatChannelId}")
+  @MessageMapping("/chat/{radioChannelId}")
+  @SendTo("/topic/chatChannel/{radioChannelId}")
   public ChatMessageDto sendMessage(
-    @DestinationVariable Long channelId,
+    @DestinationVariable Long radioChannelId,
     ChatMessageDto message
     //, Principal principal
   ) {
       // message.setSender(principal.getName());
-      return chatService.saveMessage(channelId, message);
+      return chatService.saveMessage(radioChannelId, message);
   }
 }

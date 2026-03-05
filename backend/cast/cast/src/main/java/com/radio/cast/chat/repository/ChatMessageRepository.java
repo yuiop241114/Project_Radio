@@ -9,5 +9,5 @@ import com.radio.cast.chat.entity.Chat;
 
 @Repository
 public interface ChatMessageRepository extends JpaRepository<Chat, Long>{
-  List<Chat> findTop20ByChatChannelIdOrderByCreatedAtDesc(Long channelId);
+  List<Chat> findTop20ByRadioChannelIdOrderByCreatedAtDesc(Long radioChannelId);
 }
