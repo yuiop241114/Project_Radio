@@ -29,9 +29,9 @@ const RadioPlayer = ({ currentChannel }) => {
       const nowData = nowRes.data; // RadioTrackResponse 객체
 
       setPlaylist(newPlaylist);
-      console.log(newPlaylist)
+      // console.log(newPlaylist)
 
-      //백엔드에서 받은 radioTrackId가 playlist의 몇 번째 인덱스인지 찾습니다.
+      //백엔드에서 받은 radioTrackId가 playlist의 몇 번째 인덱스인지 탐색
       const foundIndex = newPlaylist.findIndex(
         (track) => track.radioTrackId === nowData.radioTrackId
       );

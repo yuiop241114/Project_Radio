@@ -1,9 +1,11 @@
 import { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
+
 import RadioInfo from "../components/radio/RadioInfo";
 import RadioChannelList from "../components/radio/RadioChannelList";
 import RadioPlayer from "../components/radio/RadioPlayer";
-// import { radioChannels } from "../components/radio/radioChannels";
+import Chat from "../components/chat/Chat";
+
 import AxiosToken from "../api/AxiosToken";
 import "../styles/radioPage.css";
 
@@ -64,7 +66,12 @@ const RadioPage = () => {
 
         <div className="radio-main">
           <RadioInfo channel={currentChannel} />
-          {currentChannel.status ? <RadioPlayer currentChannel={currentChannel} /> : <div></div>}
+          {currentChannel.status ? 
+            <>
+              <RadioPlayer currentChannel={currentChannel} />
+              <Chat radioChannelId={currentChannel.radioChannelId}/>
+            </>
+            : <div></div>}
           {/* <RadioPlayer currentChannel={currentChannel} /> */}
         </div>
       </div>
