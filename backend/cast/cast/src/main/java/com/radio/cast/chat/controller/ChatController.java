@@ -26,23 +26,15 @@ public class ChatController {
   private final ChatService chatService;
   private final SimpMessagingTemplate simpMessagingTemplate;
 
-  // @MessageMapping("/chat/{radioChannelId}")
-  // @MessageMapping("/chat/send")
-  // @SendTo("/topic/chatChannel/{radioChannelId}")
-  // public ChatMessageDto sendMessage(
-  //   @DestinationVariable Long radioChannelId,
-  //   ChatMessageDto message
-  //   //, Principal principal
-  // ) {
-  //     // message.setSender(principal.getName());
-  //     return chatService.saveMessage(radioChannelId, message);
-  // }
-
   @MessageMapping("/chat/send")
-  public void sendMessage(ChatMessageDto message) {
+  public void sendMessage(ChatMessageDto message, Principal principal) {
     // System.out.println("채팅 내역 : " + message.getRadioChannelId());
     // System.out.println("채팅 내역 : " + message.getContent());
     // System.out.println("채팅 내역 : " + message.getSender());
+    //토큰에서 사용자 이름 추출
+    String username = principal.getName();
+    message.setSender(username);
+
     ChatMessageDto savedMessage = chatService.saveMessage(message.getRadioChannelId(), message);
 
     simpMessagingTemplate.convertAndSend(
