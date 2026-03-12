@@ -100,3 +100,6 @@ Axios Interceptor를 활용한 토큰 자동 첨부
 ![라디오 프로젝트 라디오 채널 생성](https://github.com/user-attachments/assets/0d61547b-bdac-4a1a-884e-f35be519d07c)
 ![라디오 프로젝트 라디오 채널 관리(방송 상태)](https://github.com/user-attachments/assets/f1601a5e-e320-4d36-9666-e52483dc22a3)
 
+## 라디오 채널 채팅 기능
+![라디오 프로젝트 라디오 채널 채팅](https://github.com/user-attachments/assets/1313933c-e581-47ea-bc31-d07083f680ef)
+
