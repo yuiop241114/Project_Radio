@@ -9,6 +9,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import com.radio.cast.basicFunction.auth.service.AuthService;
 import com.radio.cast.chat.dto.ChatMessageDto;
 import com.radio.cast.chat.service.ChatService;
 
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChatController {
   private final ChatService chatService;
   private final SimpMessagingTemplate simpMessagingTemplate;
+  private final AuthService authService;
 
   @MessageMapping("/chat/send")
   public void sendMessage(ChatMessageDto message, Principal principal) {
@@ -33,7 +35,7 @@ public class ChatController {
     // System.out.println("채팅 내역 : " + message.getSender());
     //토큰에서 사용자 이름 추출
     String username = principal.getName();
-    message.setSender(username);
+    message.setSender(authService.userData(username).getUsername());
 
     ChatMessageDto savedMessage = chatService.saveMessage(message.getRadioChannelId(), message);
 
