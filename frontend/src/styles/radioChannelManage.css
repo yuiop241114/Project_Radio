@@ -46,3 +46,12 @@ button.stop {
   font-weight: bold;
   cursor: pointer;
 }
+
+button.del {
+  background: gray;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}

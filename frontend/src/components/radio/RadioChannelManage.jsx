@@ -56,6 +56,7 @@ const radioChannelManage = () => {
         <p className="desc">{channel.description}</p>
 
         <div className="actions">
+          <button className="del">채널 삭제</button>
           {channel.status ? (
             <button className="stop" onClick={stopBroadcast}>
               방송 종료
