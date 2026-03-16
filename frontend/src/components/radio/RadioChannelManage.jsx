@@ -42,6 +42,11 @@ const radioChannelManage = () => {
     alert("방송 종료");
   };
 
+  const deleteBroadcast = () =>{
+    const result = confirm("정말 삭제 하시겠습니까?");
+    console.log(result);
+  };
+
   if (!channel) return <h2 className="my-channel-manage">생성한 채널이 존재하지 않습니다</h2>;
 
   return (
@@ -56,7 +61,8 @@ const radioChannelManage = () => {
         <p className="desc">{channel.description}</p>
 
         <div className="actions">
-          <button className="del">채널 삭제</button>
+          <button className="del" onClick={deleteBroadcast}>채널 삭제</button>
+
           {channel.status ? (
             <button className="stop" onClick={stopBroadcast}>
               방송 종료
