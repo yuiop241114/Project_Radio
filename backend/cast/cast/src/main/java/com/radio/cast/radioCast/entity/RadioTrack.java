@@ -27,10 +27,10 @@ public class RadioTrack {
     @Column(name = "radio_track_id") 
     private Long radioTrackId;
 
-    @Column(name = "playlist_id")
+    // @Column(name = "playlist_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "playlist_id", nullable = false)
-    private Long playlistId;
+    @JoinColumn(name = "radio_playlist_id", nullable = false)
+    private RadioPlayList radioPlaylist;
 
     @Column(name = "radio_track_title")
     private String radioTrackTitle;

@@ -64,7 +64,7 @@ public class RadioService {
    * @return
    */
   public List<RadioTrack> RadioTrackList(Long playlistId){
-    return radioTrackRepository.findByPlaylistIdOrderByTrackOrder(playlistId);
+    return radioTrackRepository.findByRadioPlaylistIdOrderByTrackOrder(playlistId);
   }
 
   /**
@@ -83,11 +83,11 @@ public class RadioService {
    */
   public RadioTrackResponse NowPlaying(Long radioChannelId) {
     RadioChannel channel = radioChannelRepository.findByRadioChannelId(radioChannelId);
-
+    RadioPlayList playlist = radioPlaylistRepository.findByRadioChannelId(channel);
+    //라디오 채널 아이디 -> 플레이 리스트 조회 후 플레이 리스트 아이디 추출
     List<RadioTrack> tracks =
-        radioTrackRepository.findByPlaylistIdOrderByTrackOrder(
-            channel.getPlaylistId()
-        );
+      // radioTrackRepository.findByPlaylistIdOrderByTrackOrder(channel.getPlaylistId());
+      radioTrackRepository.findByRadioPlaylistIdOrderByTrackOrder(playlist.getRadioPlaylistId());
 
     //해당 채널 실행 시간
     long elapsed =
@@ -159,22 +159,23 @@ public class RadioService {
   @Transactional
   public void createChannelWithTracks(RadioChannelCreateRequest data) throws IOException {
 
-    RadioPlayList playlistSetup = new RadioPlayList();
-    playlistSetup.setRadioPlaylistName(data.getRadioChannelName() + " Playlist");
-    // 플레이리스트 생성
-    RadioPlayList playlist = radioPlaylistRepository.save(playlistSetup);
-
     //채널 생성 (먼저 만들어야 channelId 사용 가능)
     RadioChannel channel = radioChannelRepository.save(
-        RadioChannel.builder()
-            .radioChannelName(data.getRadioChannelName())
-            .radioUserId(data.getRadioUserId())
-            .description(data.getDescription())
-            .playlistId(playlist.getRadioPlaylistId())
-            .startTime(LocalDateTime.now())
-            .status(false)
-            .build()
+      RadioChannel.builder()
+      .radioChannelName(data.getRadioChannelName())
+      .radioUserId(data.getRadioUserId())
+      .description(data.getDescription())
+      // .playlistId(playlist.getRadioPlaylistId())
+      .startTime(LocalDateTime.now())
+      .status(false)
+      .build()
     );
+
+    RadioPlayList playlistSetup = new RadioPlayList();
+    playlistSetup.setRadioPlaylistName(data.getRadioChannelName() + " Playlist");
+    playlistSetup.setRadioChannelId(channel);
+    // 플레이리스트 생성
+    RadioPlayList playlist = radioPlaylistRepository.save(playlistSetup);
 
     int order = 1;
 
@@ -207,7 +208,7 @@ public class RadioService {
       }
 
       RadioTrack track = RadioTrack.builder()
-          .playlistId(playlist.getRadioPlaylistId())
+          .radioPlaylist(playlist)
           .radioTrackTitle(title)
           .artist(artist)
           .duration(duration)

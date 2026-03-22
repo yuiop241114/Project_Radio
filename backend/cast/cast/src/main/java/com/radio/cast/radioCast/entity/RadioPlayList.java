@@ -30,5 +30,5 @@ public class RadioPlayList {
   //외래키 설정
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "radio_channel_id", nullable = false)
-  private Long radioChannelId;
+  private RadioChannel radioChannelId;
 }
