@@ -35,8 +35,8 @@ public class RadioChannel {
   @Column(name = "start_time")
   private LocalDateTime startTime;
 
-  @Column(name = "playlist_id")
-  private Long playlistId;
+  // @Column(name = "playlist_id")
+  // private Long playlistId;
 
   private boolean status;
 
