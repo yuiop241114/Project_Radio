@@ -35,7 +35,26 @@ const RadioPage = () => {
 
   // 중요: 데이터가 로딩 중일 때(currentChannel이 null일 때) 렌더링 방어
   if (!currentChannel) {
-    return <div className="loading">데이터를 불러오는 중입니다...</div>;
+    // return <div className="loading">데이터를 불러오는 중입니다...</div>;
+    return <div className="radio-page-wrapper">
+    <div className="radio-page-top">
+          <button
+            className="create-btn"
+            onClick={() => navigate("/radio/create")}
+          >
+            ➕ 채널 생성
+          </button>
+          <button
+            className="manage-btn"
+            onClick={() =>
+              navigate(`/radio/manage`)
+            }
+          >
+            ⚙ 내 채널 관리
+          </button>
+        </div>
+        <div className="loading">데이터를 불러오는 중입니다...</div>
+      </div>;
   }
 
   return (
